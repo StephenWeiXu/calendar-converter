@@ -1,8 +1,4 @@
 import React, { Component } from "react";
-import { withRouter } from 'react-router'
-import $ from "jquery";
-
-window.$ = window.jQuery = $;
 
 class Demo extends Component {
   	constructor(props) {
@@ -12,17 +8,6 @@ class Demo extends Component {
 	}
 	
     componentDidMount() {
-		this.props.history.listen((location, action) => {
-			console.log(location, action);
-
-			let sectionID = location.pathname.replace("/", "");
-
-			if(sectionID && action === "POP") {
-				$('html, body').animate({
-	              scrollTop: $(`[name=${sectionID}]`).offset().top
-	          	}, 500);
-			}
-		});
 	}
 
 	render() {
@@ -36,18 +21,18 @@ class Demo extends Component {
 
 		return(
 			<div>
-				<div name="section_1" style={sectionStyle}>
+				<div id="section_1" style={sectionStyle}>
 					<h2 style={h2Style}>Section 1</h2>
 					<p>This is section 1</p>
 				</div>
 
 
-				<div name="section_2" style={sectionStyle}>
+				<div id="section_2" style={sectionStyle}>
 					<h2 style={h2Style}>Section 2</h2>
 					<p>This is section 2</p>
 				</div>
 
-				<div name="section_3" style={sectionStyle}>
+				<div id="section_3" style={sectionStyle}>
 					<h2 style={h2Style}>Section 3</h2>
 					<p>This is section 3</p>
 				</div>
@@ -56,4 +41,4 @@ class Demo extends Component {
 	}
 }
 
-export default withRouter(Demo);
+export default Demo;
