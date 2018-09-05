@@ -27,7 +27,7 @@ class App extends Component {
       <HashRouter>
         <div>
           <div className="nav">
-            <ScrollableNav>
+            <ScrollableNav scrollSectionIds={["section_1", "section_2", "section_3"]}>
                 <li><NavLink to="/"><span>Home</span></NavLink></li>
                 <li><NavLink to="/section_1"><span>Section 1</span></NavLink></li>
                 <li><NavLink to="/section_2"><span>Section 2</span></NavLink></li>
