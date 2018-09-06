@@ -10,19 +10,6 @@ class App extends Component {
   }
 
   render() {
-    let navStyle = {
-      "position": "fixed",
-      "listStyle": "none",
-    }
-
-    let sectionStyle = {
-      "height": "400px"
-    }
-
-    let h2Style = {
-      "paddingTop": "100px"
-    }
-
     return(
       <HashRouter>
         <div>

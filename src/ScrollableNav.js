@@ -33,6 +33,10 @@ class ScrollableNav extends Component {
     animateScroll();
   }
 
+  getNavLinkElement(sectionID) {
+    return document.querySelector(`a[href='#/${sectionID}']`);
+  }
+
   componentDidMount() {
     window.onpopstate = (event) => {
       event.preventDefault();
@@ -50,21 +54,15 @@ class ScrollableNav extends Component {
       this.scrollSectionIds.map((sectionID, index) => {
          scrollSectionOffsetTop = document.getElementById(sectionID).offsetTop - document.getElementsByClassName("nav")[0].scrollHeight;
 
-         console.log(window.pageYOffset);
-         console.log(scrollSectionOffsetTop);
-         console.log(document.getElementById(sectionID).scrollHeight);
-
          if(window.pageYOffset >= scrollSectionOffsetTop && window.pageYOffset < scrollSectionOffsetTop + document.getElementById(sectionID).scrollHeight) {
-          console.log("here1");
-          document.querySelector(`a[href='#/${sectionID}']`).classList.add("is-active");
+          this.getNavLinkElement(sectionID).classList.add("is-active");
           this.clearOtherNavLinkActiveStyle(sectionID)
          } else {
-          document.querySelector(`a[href='#/${sectionID}']`).classList.remove("is-active");
+          this.getNavLinkElement(sectionID).classList.remove("is-active");
          }
 
          if(((window.innerHeight + window.pageYOffset) >= document.body.offsetHeight) && (index==this.scrollSectionIds.length-1)) {
-          console.log("here3");
-          document.querySelector(`a[href='#/${sectionID}']`).classList.add("is-active");
+          this.getNavLinkElement(sectionID).classList.add("is-active");
           this.clearOtherNavLinkActiveStyle(sectionID);
          }
       });
@@ -74,7 +72,7 @@ class ScrollableNav extends Component {
   clearOtherNavLinkActiveStyle(excludeSectionID) {
     this.scrollSectionIds.map((sectionID, index) => {
       if (sectionID !== excludeSectionID) {
-        document.querySelector(`a[href='#/${sectionID}']`).classList.remove("is-active");
+        this.getNavLinkElement(sectionID).classList.remove("is-active");
       }
     });
   }
