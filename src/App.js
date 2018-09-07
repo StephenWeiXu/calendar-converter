@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import { Route, NavLink, HashRouter, BrowserRouter, Switch } from "react-router-dom";
-import ScrollableNav from "./ScrollableNav";
+import { Route, NavLink, HashRouter, Switch } from "react-router-dom";
+import ScrollableNav from "react-scrollnav";
 
 class App extends Component {
   constructor(props) {
