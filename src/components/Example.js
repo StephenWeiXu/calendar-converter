@@ -9,7 +9,7 @@ class Example extends Component {
 	}
 
 	componentWillMount() {
-		fetch(`/src/components/example.md`)
+		fetch(`./markdown/example.md`)
 			.then(response => response.text())
 			.then(text => this.setState({content:text}))
 	}

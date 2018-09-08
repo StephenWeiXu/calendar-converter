@@ -1,4 +1,5 @@
 const path = require('path'),
+    WebpackShellPlugin = require("webpack-shell-plugin"),
     HtmlWebpackPlugin = require("html-webpack-plugin"),
     htmlWebpackPlugin = new HtmlWebpackPlugin({
         template: path.join(__dirname, "src/index.html"),
@@ -59,7 +60,14 @@ module.exports = {
     },
     plugins: [
         extractSass,
-        htmlWebpackPlugin
+        htmlWebpackPlugin,
+        new WebpackShellPlugin({
+            onBuildStart:[
+                "echo \033[1;33mMoving files into build/\033[0m",
+                "mkdir -p build",
+                "cp -R markdown build/"
+            ]
+        })
     ],
     resolve: {
         extensions: [".js", ".jsx"]
