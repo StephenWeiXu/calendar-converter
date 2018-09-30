@@ -14,11 +14,19 @@ class Example extends Component {
 			.then(text => this.setState({content:text}))
 	}
 
+	buildExampleCode() {
+		if (window.screen.availWidth > 1000) {
+			return(<div className="code-block"><ReactMarkdown source={this.state.content} /></div>);
+		} else {
+			return(<div>Check out the code in Desktop screen</div>);
+		}
+	}
+
 	render() {
 		return (
 			<div className="section-content">
 				<h2>Example</h2>
-				<div className="code-block"><ReactMarkdown source={this.state.content} /></div>
+				{this.buildExampleCode()}
 			</div>
 		);
 	}

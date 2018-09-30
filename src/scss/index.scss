@@ -13,7 +13,7 @@ body {
 
   ul {
     list-style: none;
-    padding: 0 20% 0 20%;
+    padding: 0 5rem 0 5rem;
 
     li {
       display: inline;
@@ -24,20 +24,12 @@ body {
         padding: 18px;
 
         &.is-active {
-          background: gray;
+          background: cadetblue;
         }
 
         &:hover {
           opacity: 0.8;
         }
-      }
-    }
-
-    li:first-child {
-      margin-right: 150px;
-
-      a {
-        padding-left: 0;
       }
     }
   }
@@ -73,7 +65,7 @@ body {
     @include section;
 
     background: aliceblue;
-    height: 650px;
+    height: 700px;
 
     .code-block {
       width: fit-content;
@@ -85,7 +77,6 @@ body {
 
     table {
       border-collapse: collapse;
-      width: max-content;
 
       thead tr th {
         border-bottom: 4px solid cadetblue;
@@ -103,7 +94,7 @@ body {
   }
 
   .section-content {
-    padding: 5% 20% 5% 20%;
+    padding: 2rem 5rem 2rem 5rem;
     text-align: left;
   }
 }

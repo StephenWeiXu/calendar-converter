@@ -30,6 +30,12 @@ class Configuration extends Component {
 								<td>"is-active"</td>
 							</tr>
 							<tr>
+								<td>scrollDuration</td>
+								<td>String</td>
+								<td>Scroll duration for controlling how fast the nav click scrolls to its section. Default is "1000"</td>
+								<td>"1000"</td>
+							</tr>
+							<tr>
 								<td>router</td>
 								<td>String</td>
 								<td>The name of router used in react app if any</td>
