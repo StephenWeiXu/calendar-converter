@@ -19,10 +19,12 @@ class App extends Component {
         <div>
           <div className="nav">
             <ScrollspyNav scrollTargetIds={["section_1", "section_2", "section_3"]} activeNavClass="is-active" scrollDuration="1000">
-                <li><a href="/"><span>Home</span></a></li>
-                <li><a href="#section_1"><span>Usage</span></a></li>
-                <li><a href="#section_2"><span>Example</span></a></li>
-                <li><a href="#section_3"><span>Configuration</span></a></li>
+                <ul>
+                  <li><a href="/"><span>Home</span></a></li>
+                  <li><a href="#section_1"><span>Usage</span></a></li>
+                  <li><a href="#section_2"><span>Example</span></a></li>
+                  <li><a href="#section_3"><span>Configuration</span></a></li>
+                </ul>
             </ScrollspyNav>
           </div>
 
