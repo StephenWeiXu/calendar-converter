@@ -18,7 +18,7 @@ class App extends Component {
     return(
         <div>
           <div className="nav">
-            <ScrollspyNav scrollTargetIds={["section_1", "section_2", "section_3"]} activeNavClass="is-active" scrollDuration="1000">
+            <ScrollspyNav scrollTargetIds={["section_1", "section_2", "section_3"]} activeNavClass="is-active" scrollDuration="1000" headerBackground="true">
                 <ul>
                   <li><a href="/"><span>Home</span></a></li>
                   <li><a href="#section_1"><span>Usage</span></a></li>
