@@ -64,8 +64,7 @@ module.exports = {
         new WebpackShellPlugin({
             onBuildStart:[
                 "echo \033[1;33mMoving files into build/\033[0m",
-                "mkdir -p build",
-                "cp -R markdown build/"
+                "mkdir -p build"
             ]
         })
     ],
