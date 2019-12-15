@@ -21,7 +21,7 @@ class App extends Component {
           </div>
 
           <div className="content">
-              <div><CalendarConverter /></div>
+              <CalendarConverter />
           </div>
         </div>
       </HashRouter>

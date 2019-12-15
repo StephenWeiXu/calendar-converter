@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import {Solar, Lunar, LunarSolarConverter} from "../lib/LunarSolarConverter";
+import { Container, Row, Col, Card} from "react-bootstrap";
+import ConverterCard from "./ConverterCard";
 
 class CalendarConverter extends Component {
 	constructor(props) {
@@ -24,12 +26,15 @@ class CalendarConverter extends Component {
 	render() {
 		return (
 			<div className="section-content">
-				<h1>react-scrollspy-nav</h1>
-				<p><b>react-scrollspy-nav</b> is a React component that provides smooth scrolling navigation to the page. 
-				It also acconuts for the factor that a React app may use different React router and therefore has 
-				different url patterns (for example the hash pathname in <i>HashRouter</i>).
-				</p>
-				<p>{this.solarToLunar().lunarYear}, {this.solarToLunar().lunarMonth}, {this.solarToLunar().lunarDay}</p>
+				<Container>
+					<Row>
+						<Col>
+							<ConverterCard />
+						</Col>
+					</Row>
+				</Container>
+
+				{/* <p>{this.solarToLunar().lunarYear}, {this.solarToLunar().lunarMonth}, {this.solarToLunar().lunarDay}</p> */}
 			</div>
 		);
 	}
