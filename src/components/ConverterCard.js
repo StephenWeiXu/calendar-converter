@@ -13,15 +13,17 @@ class CalendarCard extends Component {
         <Card.Header className="converter-header">
           <Row>
             <Col>Solar Calendar</Col>
-            <Col xs={1}><Button variant="primary">switch</Button></Col>
+            <Col xs={1}><Button variant="secondary" size="sm">Switch</Button></Col>
             <Col>Lunar Calendar</Col>
           </Row>
         </Card.Header>
         <Card.Body>
-          <Card.Title>Special title treatment</Card.Title>
-          <Card.Text>
-            With supporting text below as a natural lead-in to additional content.
-          </Card.Text>
+          <Container>
+            <Row>
+              <Col className="converter-body__source">1 of 2</Col>
+              <Col className="converter-body__result">2 of 2</Col>
+            </Row>
+          </Container>
         </Card.Body>
       </Card>
 		);

@@ -1,0 +1,16 @@
+.converter-header {
+  text-align: center;
+}
+
+.card-body {
+  padding: 0;
+
+  .converter-body__source {
+    border-right: 1px solid lightgrey;
+    padding: 1rem;
+  }
+
+  .converter-body__result {
+    padding: 1rem;
+  }
+}
