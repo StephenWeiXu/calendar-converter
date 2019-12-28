@@ -4,6 +4,8 @@ import {Solar, Lunar, LunarSolarConverter} from "../lib/LunarSolarConverter";
 import { Container, Row, Col, Card, Button} from "react-bootstrap";
 import { CALENDAR_TYPES, switchSourceAndTargetCalendar } from "../reducers/converterSlice";
 import SourceCalendar from "./SourceCalendar";
+import TargetCalendar from "./TargetCalendar";
+
 
 const mapStateToProps = (state) => {
   return {
@@ -47,12 +49,16 @@ class CalendarCard extends Component {
           </Row>
         </Card.Header>
         <Card.Body>
-            <Row>
-              <Col className="converter-body__source">
-                <SourceCalendar />
-              </Col>
-              <Col className="converter-body__result">2 of 2</Col>
-            </Row>
+            <Container>
+              <Row>
+                <Col className="converter-body__source">
+                  <SourceCalendar />
+                </Col>
+                <Col className="converter-body__target">
+                  <TargetCalendar />
+                </Col>
+              </Row>
+            </Container>
         </Card.Body>
       </Card>
 		);
