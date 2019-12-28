@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Route, NavLink, HashRouter, Switch } from "react-router-dom";
 import CalendarConverter from "./components/CalendarConverter";
+import Navbar from "react-bootstrap/Navbar";
 
 
 class App extends Component {
@@ -12,13 +13,9 @@ class App extends Component {
     return (
       <HashRouter>
         <div>
-          <div className="nav">
-            <ul>
-              <li>
-                <NavLink to="/"><span>Calendar Converter</span></NavLink>
-              </li>
-            </ul>
-          </div>
+          <Navbar bg="dark" variant="dark" className="nav">
+            <Navbar.Brand href="/">Calendar Converter</Navbar.Brand>
+          </Navbar>
 
           <div className="content">
               <CalendarConverter />

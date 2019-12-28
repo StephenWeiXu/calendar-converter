@@ -1,6 +1,8 @@
 import { combineReducers } from "redux";
-import ConverterReducer from "./ConverterSlice";
+import ConverterSlice from "./converterSlice";
+import SourceCalendarSlice from "./sourceCalendarSlice";
 
 export default combineReducers({
-  converter: ConverterReducer
+  converter: ConverterSlice,
+  sourceCalendar: SourceCalendarSlice
 })

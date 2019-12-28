@@ -25,14 +25,12 @@ class CalendarConverter extends Component {
 
 	render() {
 		return (
-			<div className="section-content">
-				<Container>
-					<Row>
-						<Col>
-							<ConverterCard />
-						</Col>
-					</Row>
-				</Container>
+			<div>
+        <Row>
+          <Col>
+            <ConverterCard />
+          </Col>
+        </Row>
 
 				{/* <p>{this.solarToLunar().lunarYear}, {this.solarToLunar().lunarMonth}, {this.solarToLunar().lunarDay}</p> */}
 			</div>

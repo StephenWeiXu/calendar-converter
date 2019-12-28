@@ -2,8 +2,9 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import {Solar, Lunar, LunarSolarConverter} from "../lib/LunarSolarConverter";
 import { Container, Row, Col, Card, Button} from "react-bootstrap";
-import { CALENDAR_TYPES, switchSourceAndTargetCalendar } from "../reducers/ConverterSlice";
-  
+import { CALENDAR_TYPES, switchSourceAndTargetCalendar } from "../reducers/converterSlice";
+import SourceCalendar from "./SourceCalendar";
+
 const mapStateToProps = (state) => {
   return {
     sourceCalendar: state.converter.sourceCalendar,
@@ -33,7 +34,6 @@ class CalendarCard extends Component {
       default:
         return "Unknown";
     }
-
   }
 
 	render() {
@@ -47,12 +47,12 @@ class CalendarCard extends Component {
           </Row>
         </Card.Header>
         <Card.Body>
-          <Container>
             <Row>
-              <Col className="converter-body__source">1 of 2</Col>
+              <Col className="converter-body__source">
+                <SourceCalendar />
+              </Col>
               <Col className="converter-body__result">2 of 2</Col>
             </Row>
-          </Container>
         </Card.Body>
       </Card>
 		);
