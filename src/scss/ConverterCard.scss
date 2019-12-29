@@ -7,6 +7,16 @@
 
 .converter-header {
   text-align: center;
+
+  .converter-header__switch-icon {
+    height: 25px;
+    width: 25px;
+    cursor: pointer;
+
+    &:hover {
+      opacity: 0.6;
+    }
+  }
 }
 
 .card-body {

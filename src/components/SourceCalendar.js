@@ -34,15 +34,6 @@ class SourceCalendar extends Component {
     super(props);
   }
 
-  componentDidMount() {
-    const today = new Date();
-    this.props.setSourceYear(today.getFullYear());
-    this.props.setSourceMonth(today.getMonth() + 1);
-    this.props.setSourceDay(today.getDate());
-
-    this.props.calculateTargetCalendarDate();
-  }
-
   getMonthList() {
     return (
       <select>
