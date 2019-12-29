@@ -24,7 +24,8 @@ class TargetCalendar extends Component {
     return (
       <select>
         {Object.keys(GREGORIAN_CALENDAR_MONTHS).map( (monthKey) => {
-          return <option key={monthKey} value={monthKey}>{GREGORIAN_CALENDAR_MONTHS[monthKey]}</option>;
+          const isSelected = this.props.targetMonth === Number(monthKey);
+          return <option key={monthKey} value={monthKey} selected={isSelected}>{GREGORIAN_CALENDAR_MONTHS[monthKey]}</option>;
         })}
       </select>
     )

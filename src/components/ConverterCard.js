@@ -1,16 +1,17 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import {Solar, Lunar, LunarSolarConverter} from "../lib/LunarSolarConverter";
 import { Container, Row, Col, Card, Button} from "react-bootstrap";
-import { CALENDAR_TYPES, switchSourceAndTargetCalendar } from "../reducers/converterSlice";
+import { switchSourceAndTargetCalendar } from "../reducers/calendarSlice";
+import { CALENDAR_TYPES } from "../utils/constantsUtil";
 import SourceCalendar from "./SourceCalendar";
 import TargetCalendar from "./TargetCalendar";
 
 
 const mapStateToProps = (state) => {
   return {
-    sourceCalendar: state.converter.sourceCalendar,
-    targetCalendar: state.converter.targetCalendar
+    sourceCalendar: state.calendar.sourceCalendar,
+    targetCalendar: state.calendar.targetCalendar,
+    reverseSourceTargetCalendarFlag: state.calendar.reverseSourceTargetCalendarFlag
   };
 }
 
@@ -40,7 +41,7 @@ class CalendarCard extends Component {
 
 	render() {
 		return (
-      <Card>
+      <Card className="converter-card">
         <Card.Header className="converter-header">
           <Row>
             <Col>{this.getCalendarTitle(this.props.sourceCalendar)}</Col>
@@ -52,10 +53,10 @@ class CalendarCard extends Component {
             <Container>
               <Row>
                 <Col className="converter-body__source">
-                  <SourceCalendar />
+                  {this.props.reverseSourceTargetCalendarFlag ? <TargetCalendar /> : <SourceCalendar />}
                 </Col>
                 <Col className="converter-body__target">
-                  <TargetCalendar />
+                  {this.props.reverseSourceTargetCalendarFlag ? <SourceCalendar /> : <TargetCalendar />}
                 </Col>
               </Row>
             </Container>

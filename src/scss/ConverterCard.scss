@@ -1,3 +1,10 @@
+.converter-card {
+  border-radius: 5px;
+  height: 100%;
+  box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.5s;
+}
+
 .converter-header {
   text-align: center;
 }

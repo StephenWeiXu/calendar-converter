@@ -1,3 +1,8 @@
+export const CALENDAR_TYPES = {
+  SOLAR: "solar",
+  LUNAR: "lunar"
+}
+
 export const GREGORIAN_CALENDAR_MONTHS = {
   1: "Janurary",
   2: "February",

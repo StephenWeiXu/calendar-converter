@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { GREGORIAN_CALENDAR_MONTHS } from "../utils/constantsUtil";
-import { setSourceYear, setSourceMonth, setSourceDay } from "../reducers/calendarSlice";
+import { setSourceYear, setSourceMonth, setSourceDay, calculateTargetCalendarDate } from "../reducers/calendarSlice";
 
 
 const mapStateToProps = (state) => {
@@ -22,6 +22,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     setSourceDay: (day) => {
       dispatch(setSourceDay({sourceDay: day}));
+    },
+    calculateTargetCalendarDate: () => {
+      dispatch(calculateTargetCalendarDate());
     }
   };
 };
@@ -34,19 +37,18 @@ class SourceCalendar extends Component {
   componentDidMount() {
     const today = new Date();
     this.props.setSourceYear(today.getFullYear());
-    this.props.setSourceMonth(today.getMonth());
+    this.props.setSourceMonth(today.getMonth() + 1);
     this.props.setSourceDay(today.getDate());
+
+    this.props.calculateTargetCalendarDate();
   }
 
   getMonthList() {
     return (
       <select>
         {Object.keys(GREGORIAN_CALENDAR_MONTHS).map( (monthKey) => {
-          if (this.props.sourceMonth === monthKey) {
-            return <option key={monthKey} value={monthKey}>{GREGORIAN_CALENDAR_MONTHS[monthKey]}</option>;
-          } else {
-            return <option key={monthKey} value={monthKey} selected>{GREGORIAN_CALENDAR_MONTHS[monthKey]}</option>;
-          }
+          const isSelected = this.props.sourceMonth === Number(monthKey);
+          return <option key={monthKey} value={monthKey} selected={isSelected}>{GREGORIAN_CALENDAR_MONTHS[monthKey]}</option>;
         })}
       </select>
     )
