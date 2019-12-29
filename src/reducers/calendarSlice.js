@@ -33,30 +33,31 @@ const calendarSlice = createSlice({
     },
 
     setSourceYear(state, action) {
-      state.sourceYear = action.payload.sourceYear;
+      state.sourceYear = Number(action.payload.sourceYear);
       calculateTargetCalendarDate(state, {});
     },
     setSourceMonth(state, action) {
-      state.sourceMonth = action.payload.sourceMonth;
+      state.sourceMonth = Number(action.payload.sourceMonth);
       calculateTargetCalendarDate(state, {});
     },
     setSourceDay(state, action) {
-      state.sourceDay = action.payload.sourceDay;
+      state.sourceDay = Number(action.payload.sourceDay);
       calculateTargetCalendarDate(state, {});
     },
 
     setTargetYear(state, action) {
-      state.targetYear = action.payload.targetYear;
+      state.targetYear = Number(action.payload.targetYear);
     },
     setTargetMonth(state, action) {
-      state.targetMonth = action.payload.targetMonth;
+      state.targetMonth = Number(action.payload.targetMonth);
     },
     setTargetDay(state, action) {
-      state.targetDay = action.payload.targetDay;
+      state.targetDay = Number(action.payload.targetDay);
     },
     calculateTargetCalendarDate(state) {
       if (state.sourceCalendar === CALENDAR_TYPES.SOLAR && state.targetCalendar === CALENDAR_TYPES.LUNAR) {
         const targetCalendarDate = solarLunarConverter.solarToLunar(state.sourceYear, state.sourceMonth, state.sourceDay);
+        console.log(targetCalendarDate);
         state.targetYear = targetCalendarDate.lunarYear;
         state.targetMonth = targetCalendarDate.lunarMonth;
         state.targetDay = targetCalendarDate.lunarDay;

@@ -36,7 +36,7 @@ class SourceCalendar extends Component {
 
   getMonthList() {
     return (
-      <select>
+      <select onChange={(e) => this.onMonthChange(e)}>
         {Object.keys(GREGORIAN_CALENDAR_MONTHS).map( (monthKey) => {
           const isSelected = this.props.sourceMonth === Number(monthKey);
           return <option key={monthKey} value={monthKey} selected={isSelected}>{GREGORIAN_CALENDAR_MONTHS[monthKey]}</option>;
@@ -45,18 +45,33 @@ class SourceCalendar extends Component {
     )
   }
 
+  onYearChange(event) {
+    this.props.setSourceYear(event.target.value);
+    this.props.calculateTargetCalendarDate();
+  }
+
+  onMonthChange(event) {
+    this.props.setSourceMonth(event.target.value);
+    this.props.calculateTargetCalendarDate();
+  }
+
+  onDayChange(event) {
+    this.props.setSourceDay(event.target.value);
+    this.props.calculateTargetCalendarDate();
+  }
+
   render() {
     return (
       <>
       <ul className="list-group list-group-horizontal calendar-group">
         <li className="list-group-item">
-          <input type="text" name="sourceYear" placeholder="yyyy" value={this.props.sourceYear} />
+          <input type="text" name="sourceYear" placeholder="yyyy" value={this.props.sourceYear} onChange={(e) => this.onYearChange(e)} />
         </li>
         <li className="list-group-item">
           { this.getMonthList() }
         </li>
         <li className="list-group-item">
-          <input type="text" name="sourceDay" placeholder="dd" value={this.props.sourceDay} />
+          <input type="text" name="sourceDay" placeholder="dd" value={this.props.sourceDay} onChange={(e) => this.onDayChange(e)} />
         </li>
       </ul>
       </>
