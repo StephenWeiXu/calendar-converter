@@ -41,6 +41,7 @@ class CalendarCard extends Component {
   }
 
   componentDidMount() {
+    // Initialize source calendar with today's date
     const today = new Date();
     this.props.setSourceYear(today.getFullYear());
     this.props.setSourceMonth(today.getMonth() + 1);

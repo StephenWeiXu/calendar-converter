@@ -4,6 +4,7 @@ export const CALENDAR_TYPES = {
 }
 
 export const GREGORIAN_CALENDAR_MONTHS = {
+  0: "---",
   1: "Janurary",
   2: "February",
   3: "March",

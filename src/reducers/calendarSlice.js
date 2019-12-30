@@ -56,6 +56,7 @@ const calendarSlice = createSlice({
     },
     calculateTargetCalendarDate(state) {
       if (state.sourceCalendar === CALENDAR_TYPES.SOLAR && state.targetCalendar === CALENDAR_TYPES.LUNAR) {
+        console.log(state.sourceYear, state.sourceMonth, state.sourceDay);
         const targetCalendarDate = solarLunarConverter.solarToLunar(state.sourceYear, state.sourceMonth, state.sourceDay);
         console.log(targetCalendarDate);
         state.targetYear = targetCalendarDate.lunarYear;
