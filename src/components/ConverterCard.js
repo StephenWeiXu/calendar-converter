@@ -58,7 +58,8 @@ class CalendarCard extends Component {
 
   /**
    * Change calendar in the calendar dropdown
-   * @param {Event} event 
+   * @param {Event} event
+   * @param {Boolean} isSource
    */
   changeCalendar(event, isSource) {
     const calendarName = event.target.dataset.calendarName;

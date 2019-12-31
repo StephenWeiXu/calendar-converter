@@ -1,8 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { SolarLunarConverter } from "../utils/converterUtil";
+import { ConverterUtil } from "../utils/converterUtil";
 import { CALENDAR_TYPES } from "../utils/constantsUtil";
 
-const solarLunarConverter = new SolarLunarConverter();
+const converterUtil = new ConverterUtil();
 
 const calendarSlice = createSlice({
   name: "sourceCalendar",
@@ -31,7 +31,6 @@ const calendarSlice = createSlice({
       
       state.reverseSourceTargetCalendarFlag = !state.reverseSourceTargetCalendarFlag;
     },
-
     setSourceYear(state, action) {
       state.sourceYear = Number(action.payload.sourceYear);
       calculateTargetCalendarDate(state, {});
@@ -57,7 +56,7 @@ const calendarSlice = createSlice({
     calculateTargetCalendarDate(state) {
       if (state.sourceCalendar === CALENDAR_TYPES.SOLAR && state.targetCalendar === CALENDAR_TYPES.LUNAR) {
         console.log(state.sourceYear, state.sourceMonth, state.sourceDay);
-        const targetCalendarDate = solarLunarConverter.solarToLunar(state.sourceYear, state.sourceMonth, state.sourceDay);
+        const targetCalendarDate = converterUtil.solarToLunar(state.sourceYear, state.sourceMonth, state.sourceDay);
         console.log(targetCalendarDate);
         state.targetYear = targetCalendarDate.lunarYear;
         state.targetMonth = targetCalendarDate.lunarMonth;
@@ -69,7 +68,7 @@ const calendarSlice = createSlice({
     calculateSourceCalendarDate(state) {
       if (state.sourceCalendar === CALENDAR_TYPES.SOLAR && state.targetCalendar === CALENDAR_TYPES.LUNAR) {
         console.log(state.targetYear, state.targetMonth, state.targetDay);
-        const sourceCalendarDate = solarLunarConverter.lunarToSolar(state.targetYear, state.targetMonth, state.targetDay);
+        const sourceCalendarDate = converterUtil.lunarToSolar(state.targetYear, state.targetMonth, state.targetDay);
         console.log(sourceCalendarDate);
         state.sourceYear = sourceCalendarDate.solarYear;
         state.sourceMonth = sourceCalendarDate.solarMonth;
