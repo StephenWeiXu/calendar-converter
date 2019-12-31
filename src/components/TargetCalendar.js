@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { GREGORIAN_CALENDAR_MONTHS } from "../utils/constantsUtil";
-
+import { setTargetYear, setTargetMonth, setTargetDay, calculateSourceCalendarDate} from "../reducers/calendarSlice";
 
 const mapStateToProps = (state) => {
   return {
@@ -12,7 +12,20 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => {
-  return {};
+  return {
+    setTargetYear: (year) => {
+      dispatch(setTargetYear({targetYear: year}));
+    },
+    setTargetMonth: (month) => {
+      dispatch(setTargetMonth({targetMonth: month}));
+    },
+    setTargetDay: (day) => {
+      dispatch(setTargetDay({targetDay: day}));
+    },
+    calculateSourceCalendarDate: () => {
+      dispatch(calculateSourceCalendarDate());
+    }
+  };
 };
 
 class TargetCalendar extends Component {
@@ -20,9 +33,24 @@ class TargetCalendar extends Component {
     super(props);
   }
 
-  getMonthList() {
+  onTargetYearChange(event) {
+    this.props.setTargetYear(event.target.value);
+    this.props.calculateSourceCalendarDate();
+  }
+
+  onTargetMonthChange(event) {
+    this.props.setTargetMonth(event.target.value);
+    this.props.calculateSourceCalendarDate();
+  }
+
+  onTargetDayChange(event) {
+    this.props.setTargetDay(event.target.value);
+    this.props.calculateSourceCalendarDate();
+  }
+
+  getTargetMonthList() {
     return (
-      <select>
+      <select onChange={(e) => this.onTargetMonthChange(e)}>
         {Object.keys(GREGORIAN_CALENDAR_MONTHS).map( (monthKey) => {
           const isSelected = this.props.targetMonth === Number(monthKey);
           return <option key={monthKey} value={monthKey} selected={isSelected}>{GREGORIAN_CALENDAR_MONTHS[monthKey]}</option>;
@@ -31,18 +59,26 @@ class TargetCalendar extends Component {
     )
   }
 
+  getDisplayTargetYear() {
+    return this.props.targetYear === 0 ? "" : this.props.targetYear;
+  }
+
+  getDisplayTargetDay() {
+    return this.props.targetDay === 0 ? "" : this.props.targetDay;
+  }
+
   render() {
     return (
       <>
       <ul className="list-group list-group-horizontal calendar-group">
         <li className="list-group-item">
-          <input type="text" name="sourceYear" placeholder="yyyy" value={this.props.targetYear} />
+          <input type="text" name="sourceYear" placeholder="yyyy" value={this.getDisplayTargetYear()} onChange={(e) => this.onTargetYearChange(e)} />
         </li>
         <li className="list-group-item">
-          { this.getMonthList() }
+          { this.getTargetMonthList() }
         </li>
         <li className="list-group-item">
-          <input type="text" name="sourceDay" placeholder="dd" value={this.props.targetDay} />
+          <input type="text" name="sourceDay" placeholder="dd" value={this.getDisplayTargetDay()} onChange={(e) => this.onTargetDayChange(e)} />
         </li>
       </ul>
       </>

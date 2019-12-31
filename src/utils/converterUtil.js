@@ -14,4 +14,12 @@ export class SolarLunarConverter {
     let lunar = this.converter.SolarToLunar(this.solar);
     return lunar;
   }
+
+  lunarToSolar(year, month, day) {
+    this.lunar.lunarYear = year;
+    this.lunar.lunarMonth = month;
+    this.lunar.lunarDay = day;
+    let solar = this.converter.LunarToSolar(this.lunar);
+    return solar;
+  }
 }

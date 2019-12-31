@@ -65,6 +65,18 @@ const calendarSlice = createSlice({
       } else {
         console.error("unknown source calendar and target calendar");
       }
+    },
+    calculateSourceCalendarDate(state) {
+      if (state.sourceCalendar === CALENDAR_TYPES.SOLAR && state.targetCalendar === CALENDAR_TYPES.LUNAR) {
+        console.log(state.targetYear, state.targetMonth, state.targetDay);
+        const sourceCalendarDate = solarLunarConverter.lunarToSolar(state.targetYear, state.targetMonth, state.targetDay);
+        console.log(sourceCalendarDate);
+        state.sourceYear = sourceCalendarDate.solarYear;
+        state.sourceMonth = sourceCalendarDate.solarMonth;
+        state.sourceDay = sourceCalendarDate.solarDay;
+      } else {
+        console.error("unknown source calendar and target calendar");
+      }
     }
   }
 });
@@ -79,6 +91,7 @@ export const {
   setTargetYear,
   setTargetMonth,
   setTargetDay,
-  calculateTargetCalendarDate
+  calculateTargetCalendarDate,
+  calculateSourceCalendarDate
 }  = calendarSlice.actions;
 export default calendarSlice.reducer;

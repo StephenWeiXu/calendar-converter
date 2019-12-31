@@ -36,7 +36,7 @@ class SourceCalendar extends Component {
 
   getMonthList() {
     return (
-      <select onChange={(e) => this.onMonthChange(e)}>
+      <select onChange={(e) => this.onSourceMonthChange(e)}>
         {Object.keys(GREGORIAN_CALENDAR_MONTHS).map( (monthKey) => {
           const isSelected = this.props.sourceMonth === Number(monthKey);
           return <option key={monthKey} value={monthKey} selected={isSelected}>{GREGORIAN_CALENDAR_MONTHS[monthKey]}</option>;
@@ -45,19 +45,27 @@ class SourceCalendar extends Component {
     )
   }
 
-  onYearChange(event) {
+  onSourceYearChange(event) {
     this.props.setSourceYear(event.target.value);
     this.props.calculateTargetCalendarDate();
   }
 
-  onMonthChange(event) {
+  onSourceMonthChange(event) {
     this.props.setSourceMonth(event.target.value);
     this.props.calculateTargetCalendarDate();
   }
 
-  onDayChange(event) {
+  onSourceDayChange(event) {
     this.props.setSourceDay(event.target.value);
     this.props.calculateTargetCalendarDate();
+  }
+
+  getDisplaySourceYear() {
+    return this.props.sourceYear === 0 ? "" : this.props.sourceYear;
+  }
+
+  getDisplaySourceDay() {
+    return this.props.sourceDay === 0 ? "" : this.props.sourceDay;
   }
 
   render() {
@@ -65,13 +73,13 @@ class SourceCalendar extends Component {
       <>
       <ul className="list-group list-group-horizontal calendar-group">
         <li className="list-group-item">
-          <input type="text" name="sourceYear" placeholder="yyyy" value={this.props.sourceYear} onChange={(e) => this.onYearChange(e)} />
+          <input type="text" name="sourceYear" placeholder="yyyy" value={this.getDisplaySourceYear()} onChange={(e) => this.onSourceYearChange(e)} />
         </li>
         <li className="list-group-item">
           { this.getMonthList() }
         </li>
         <li className="list-group-item">
-          <input type="text" name="sourceDay" placeholder="dd" value={this.props.sourceDay} onChange={(e) => this.onDayChange(e)} />
+          <input type="text" name="sourceDay" placeholder="dd" value={this.getDisplaySourceDay()} onChange={(e) => this.onSourceDayChange(e)} />
         </li>
       </ul>
       </>
