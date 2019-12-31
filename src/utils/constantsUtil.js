@@ -1,6 +1,14 @@
 export const CALENDAR_TYPES = {
-  SOLAR: "solar",
-  LUNAR: "lunar"
+  SOLAR: "Gregorian",
+  LUNAR: "Lunar",
+  HEBREW: "Hebrew",
+  ISLAMIC: "Islamic",
+  JULIAN: "Julian",
+  PERSIAN: "Persian",
+  MAYAN: "Mayan",
+  INDIANCIVIL: "Indian Civil",
+  FRENCHREPUBLICAN: "French Republican",
+  UNIX: "Unix"
 }
 
 export const GREGORIAN_CALENDAR_MONTHS = {

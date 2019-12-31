@@ -51,7 +51,7 @@ class TargetCalendar extends Component {
   getTargetMonthList() {
     return (
       <select onChange={(e) => this.onTargetMonthChange(e)}>
-        {Object.keys(GREGORIAN_CALENDAR_MONTHS).map( (monthKey) => {
+        {Object.keys(GREGORIAN_CALENDAR_MONTHS).map((monthKey) => {
           const isSelected = this.props.targetMonth === Number(monthKey);
           return <option key={monthKey} value={monthKey} selected={isSelected}>{GREGORIAN_CALENDAR_MONTHS[monthKey]}</option>;
         })}

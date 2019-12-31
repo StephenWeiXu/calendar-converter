@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { Container, Row, Col, Card, Button} from "react-bootstrap";
+import { Container, Row, Col, Card, Dropdown, DropdownButton, Button, ButtonGroup} from "react-bootstrap";
 import { CALENDAR_TYPES } from "../utils/constantsUtil";
 import SourceCalendar from "./SourceCalendar";
 import TargetCalendar from "./TargetCalendar";
-import { switchSourceAndTargetCalendar, setSourceYear, setSourceMonth, setSourceDay, calculateTargetCalendarDate } from "../reducers/calendarSlice";
+import { setSourceCalendar, setTargetCalendar, switchSourceAndTargetCalendar, setSourceYear, setSourceMonth, setSourceDay, calculateTargetCalendarDate } from "../reducers/calendarSlice";
 
 
 const mapStateToProps = (state) => {
@@ -17,6 +17,12 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
+    setSourceCalendar: (calendar) => {
+      dispatch(setSourceCalendar({sourceCalendar: calendar}));
+    },
+    setTargetCalendar: (calendar) => {
+      dispatch(setTargetCalendar({targetCalendar: calendar}));
+    },
     switchSourceAndTargetCalendar: () => {
       dispatch(switchSourceAndTargetCalendar());
     },
@@ -50,15 +56,72 @@ class CalendarCard extends Component {
     this.props.calculateTargetCalendarDate();
   }
 
-  getCalendarTitle(calendar) {
-    switch(calendar) {
-      case CALENDAR_TYPES.SOLAR:
-        return "Solar Calendar";
-      case CALENDAR_TYPES.LUNAR:
-        return "Lunar Calendar";
-      default:
-        return "Unknown";
+  /**
+   * Change calendar in the calendar dropdown
+   * @param {Event} event 
+   */
+  changeCalendar(event, isSource) {
+    const calendarName = event.target.dataset.calendarName;
+    if (isSource) {
+      this.props.setSourceCalendar(calendarName);
+    } else {
+      this.props.setTargetCalendar(calendarName);
     }
+  }
+
+  /**
+   * Get the display title of the calendar
+   * @param {String} calendar 
+   */
+  getCalendarDisplayTitle(calendar) {
+    return `${calendar} Calendar`;
+  }
+
+  /**
+   * Render the calendar title dropdown button
+   * @param {String} currentCalendar
+   * @param {Boolean} isSource 
+   */
+  renderCalendarTitleDropdown(currentCalendar, isSource) {
+    let visibleCalendars = Object.keys(CALENDAR_TYPES).slice(0, 4);
+    let hiddenCalendars = Object.keys(CALENDAR_TYPES).slice(4);
+
+    return (
+      <Dropdown as={ButtonGroup}>
+        <Dropdown.Item href="#" className="selected-calendar">
+          {this.getCalendarDisplayTitle(currentCalendar)}
+        </Dropdown.Item>
+
+        {
+          visibleCalendars.map((calendarKey, index) => {
+            let calendarName = CALENDAR_TYPES[calendarKey];
+            if (calendarName !== currentCalendar) {
+              return (
+                <Dropdown.Item href="#" key={index} data-calendar-name={calendarName} onClick={(e) => this.changeCalendar(e, isSource)}>
+                  {this.getCalendarDisplayTitle(calendarName)}
+                </Dropdown.Item>
+              )
+            }
+          })
+        }
+
+        <Dropdown.Toggle split className="converter-header__dropdown-button" />
+        <Dropdown.Menu>
+          {
+            hiddenCalendars.map((calendarKey, index) => {
+              let calendarName = CALENDAR_TYPES[calendarKey];
+              if (calendarName !== currentCalendar) {
+                return (
+                  <Dropdown.Item href="#" key={index} data-calendar-name={calendarName} onClick={(e) => this.changeCalendar(e, isSource)}>
+                    {this.getCalendarDisplayTitle(calendarName)}
+                  </Dropdown.Item>
+                )
+              }
+            })
+          }
+        </Dropdown.Menu>
+      </Dropdown>
+    )
   }
 
 	render() {
@@ -66,14 +129,14 @@ class CalendarCard extends Component {
       <Card className="converter-card">
         <Card.Header className="converter-header">
           <Row>
-            <Col>
-              {this.getCalendarTitle(this.props.sourceCalendar)}
+            <Col lg={5}>
+              {this.renderCalendarTitleDropdown(this.props.sourceCalendar, true)}
             </Col>
-            <Col xs={1}>
+            <Col lg={2}>
               <img src="images/switch.png" className="converter-header__switch-icon" onClick={this.props.switchSourceAndTargetCalendar} />
             </Col>
-            <Col>
-              {this.getCalendarTitle(this.props.targetCalendar)}
+            <Col lg={5}>
+              {this.renderCalendarTitleDropdown(this.props.targetCalendar, false)}
             </Col>
           </Row>
         </Card.Header>
