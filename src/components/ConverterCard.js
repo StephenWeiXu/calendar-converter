@@ -84,12 +84,24 @@ class CalendarCard extends Component {
    * @param {Boolean} isSource 
    */
   renderCalendarTitleDropdown(currentCalendar, isSource) {
-    let visibleCalendars = Object.keys(CALENDAR_TYPES).slice(0, 4);
-    let hiddenCalendars = Object.keys(CALENDAR_TYPES).slice(4);
+    let visibileCount = 2;
+    let visibleCalendars = [];
+    let hiddenCalendars = [];
+
+    Object.keys(CALENDAR_TYPES).map((calendarKey) => {
+      let calendarName = CALENDAR_TYPES[calendarKey];
+      if (calendarName !== currentCalendar) {
+        if (visibleCalendars.length < visibileCount) {
+          visibleCalendars.push(calendarKey);
+        } else {
+          hiddenCalendars.push(calendarKey);
+        }
+      }
+    })
 
     return (
       <Dropdown as={ButtonGroup}>
-        <Dropdown.Item href="#" className="selected-calendar">
+        <Dropdown.Item href="#" className="calendar-item selected">
           {this.getCalendarDisplayTitle(currentCalendar)}
         </Dropdown.Item>
 
@@ -98,7 +110,7 @@ class CalendarCard extends Component {
             let calendarName = CALENDAR_TYPES[calendarKey];
             if (calendarName !== currentCalendar) {
               return (
-                <Dropdown.Item href="#" key={index} data-calendar-name={calendarName} onClick={(e) => this.changeCalendar(e, isSource)}>
+                <Dropdown.Item href="#" key={index} data-calendar-name={calendarName} className="calendar-item" onClick={(e) => this.changeCalendar(e, isSource)}>
                   {this.getCalendarDisplayTitle(calendarName)}
                 </Dropdown.Item>
               )
@@ -144,10 +156,10 @@ class CalendarCard extends Component {
         <Card.Body>
             <Container>
               <Row>
-                <Col className="converter-body__source">
+                <Col className="converter-body__source" lg={6}>
                   {this.props.reverseSourceTargetCalendarFlag ? <TargetCalendar /> : <SourceCalendar />}
                 </Col>
-                <Col className="converter-body__target">
+                <Col className="converter-body__target" lg={6}>
                   {this.props.reverseSourceTargetCalendarFlag ? <SourceCalendar /> : <TargetCalendar />}
                 </Col>
               </Row>

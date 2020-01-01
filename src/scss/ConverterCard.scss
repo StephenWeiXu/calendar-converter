@@ -5,41 +5,62 @@
   transition: box-shadow 0.5s;
 }
 
-.converter-header {
-  text-align: center;
+.card-header {
+  padding: 0;
+}
 
-  .selected-calendar {
-    color: #4284f3;
-    border-bottom: solid 3px #4284f3;
-  }
+.converter-card {
 
-  .converter-header__switch-icon {
-    height: 25px;
-    width: 25px;
-    cursor: pointer;
+  .converter-header {
+    text-align: center;
 
-    &:hover {
-      opacity: 0.6;
+    .calendar-item {
+      padding: 1rem 0.6rem;
+
+      &.selected {
+        padding: 1rem 0.6rem;
+        color: #4284f3;
+        border-bottom: solid 3px #4284f3;
+      }
+
+      &:hover {
+        color: #4284f3;
+      }
+
+      &:focus {
+        background: transparent;
+      }
+    }
+
+    .converter-header__switch-icon {
+      margin-top: 1rem;
+      height: 25px;
+      width: 25px;
+      cursor: pointer;
+
+      &:hover {
+        opacity: 0.6;
+      }
+    }
+
+    .converter-header__dropdown-button {
+      color: #000;
+      background-color: inherit;
+      border: none;
     }
   }
 
-  .converter-header__dropdown-button {
-    color: #000;
-    background-color: inherit;
-    border: none;
-  }
-}
+  .card-body {
+    padding: 0;
+    text-align: center;
 
-.card-body {
-  padding: 0;
-  text-align: center;
+    .converter-body__source {
+      border-right: 1px solid lightgrey;
+      padding: 2rem;
+    }
 
-  .converter-body__source {
-    border-right: 1px solid lightgrey;
-    padding: 1rem;
-  }
-
-  .converter-body__target {
-    padding: 1rem;
+    .converter-body__target {
+      padding: 2rem;
+    }
   }
 }
