@@ -1,11 +1,12 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { GREGORIAN_CALENDAR_MONTHS } from "../utils/constantsUtil";
-import { setSourceYear, setSourceMonth, setSourceDay, calculateTargetCalendarDate } from "../reducers/calendarSlice";
+import { setSourceDate, calculateTargetCalendarDate } from "../reducers/calendarSlice";
 
 
 const mapStateToProps = (state) => {
   return {
+    sourceDate: state.calendar.sourceDate,
     sourceYear: state.calendar.sourceYear,
     sourceMonth: state.calendar.sourceMonth,
     sourceDay: state.calendar.sourceDay
@@ -14,14 +15,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    setSourceYear: (year) => {
-      dispatch(setSourceYear({sourceYear: year}));
-    },
-    setSourceMonth: (month) => {
-      dispatch(setSourceMonth({sourceMonth: month}));
-    },
-    setSourceDay: (day) => {
-      dispatch(setSourceDay({sourceDay: day}));
+    setSourceDate: (payload) => {
+      dispatch(setSourceDate({sourceDate: payload}));
     },
     calculateTargetCalendarDate: () => {
       dispatch(calculateTargetCalendarDate());
@@ -38,7 +33,7 @@ class SourceCalendar extends Component {
     return (
       <select onChange={(e) => this.onSourceMonthChange(e)}>
         {Object.keys(GREGORIAN_CALENDAR_MONTHS).map((monthKey) => {
-          const isSelected = this.props.sourceMonth === Number(monthKey);
+          const isSelected = this.props.sourceDate.month === Number(monthKey);
           return <option key={monthKey} value={monthKey} selected={isSelected}>{GREGORIAN_CALENDAR_MONTHS[monthKey]}</option>;
         })}
       </select>
@@ -46,26 +41,26 @@ class SourceCalendar extends Component {
   }
 
   onSourceYearChange(event) {
-    this.props.setSourceYear(event.target.value);
+    this.props.setSourceDate({year: event.target.value});
     this.props.calculateTargetCalendarDate();
   }
 
   onSourceMonthChange(event) {
-    this.props.setSourceMonth(event.target.value);
+    this.props.setSourceDate({month: event.target.value});
     this.props.calculateTargetCalendarDate();
   }
 
   onSourceDayChange(event) {
-    this.props.setSourceDay(event.target.value);
+    this.props.setSourceDate({day: event.target.value});
     this.props.calculateTargetCalendarDate();
   }
 
   getDisplaySourceYear() {
-    return this.props.sourceYear === 0 ? "" : this.props.sourceYear;
+    return this.props.sourceDate.year === 0 ? "" : this.props.sourceDate.year;
   }
 
   getDisplaySourceDay() {
-    return this.props.sourceDay === 0 ? "" : this.props.sourceDay;
+    return this.props.sourceDate.day === 0 ? "" : this.props.sourceDate.day;
   }
 
   render() {

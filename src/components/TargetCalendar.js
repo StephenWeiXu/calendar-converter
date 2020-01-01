@@ -1,10 +1,11 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { GREGORIAN_CALENDAR_MONTHS } from "../utils/constantsUtil";
-import { setTargetYear, setTargetMonth, setTargetDay, calculateSourceCalendarDate} from "../reducers/calendarSlice";
+import { setTargetDate, calculateSourceCalendarDate} from "../reducers/calendarSlice";
 
 const mapStateToProps = (state) => {
   return {
+    targetDate: state.calendar.targetDate,
     targetYear: state.calendar.targetYear,
     targetMonth: state.calendar.targetMonth,
     targetDay: state.calendar.targetDay
@@ -13,14 +14,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    setTargetYear: (year) => {
-      dispatch(setTargetYear({targetYear: year}));
-    },
-    setTargetMonth: (month) => {
-      dispatch(setTargetMonth({targetMonth: month}));
-    },
-    setTargetDay: (day) => {
-      dispatch(setTargetDay({targetDay: day}));
+    setTargetDate: (payload) => {
+      dispatch(setTargetDate({targetDate: payload}));
     },
     calculateSourceCalendarDate: () => {
       dispatch(calculateSourceCalendarDate());
@@ -34,17 +29,17 @@ class TargetCalendar extends Component {
   }
 
   onTargetYearChange(event) {
-    this.props.setTargetYear(event.target.value);
+    this.props.setTargetDate({year: event.target.value});
     this.props.calculateSourceCalendarDate();
   }
 
   onTargetMonthChange(event) {
-    this.props.setTargetMonth(event.target.value);
+    this.props.setTargetDate({month: event.target.value});
     this.props.calculateSourceCalendarDate();
   }
 
   onTargetDayChange(event) {
-    this.props.setTargetDay(event.target.value);
+    this.props.setTargetDate({day: event.target.value});
     this.props.calculateSourceCalendarDate();
   }
 
@@ -52,7 +47,7 @@ class TargetCalendar extends Component {
     return (
       <select onChange={(e) => this.onTargetMonthChange(e)}>
         {Object.keys(GREGORIAN_CALENDAR_MONTHS).map((monthKey) => {
-          const isSelected = this.props.targetMonth === Number(monthKey);
+          const isSelected = this.props.targetDate.month === Number(monthKey);
           return <option key={monthKey} value={monthKey} selected={isSelected}>{GREGORIAN_CALENDAR_MONTHS[monthKey]}</option>;
         })}
       </select>
@@ -60,11 +55,11 @@ class TargetCalendar extends Component {
   }
 
   getDisplayTargetYear() {
-    return this.props.targetYear === 0 ? "" : this.props.targetYear;
+    return this.props.targetDate.year === 0 ? "" : this.props.targetDate.year;
   }
 
   getDisplayTargetDay() {
-    return this.props.targetDay === 0 ? "" : this.props.targetDay;
+    return this.props.targetDate.day === 0 ? "" : this.props.targetDate.day;
   }
 
   render() {

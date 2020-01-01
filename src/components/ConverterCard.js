@@ -4,7 +4,7 @@ import { Container, Row, Col, Card, Dropdown, DropdownButton, Button, ButtonGrou
 import { CALENDAR_TYPES } from "../utils/constantsUtil";
 import SourceCalendar from "./SourceCalendar";
 import TargetCalendar from "./TargetCalendar";
-import { setSourceCalendar, setTargetCalendar, switchSourceAndTargetCalendar, setSourceYear, setSourceMonth, setSourceDay, calculateTargetCalendarDate } from "../reducers/calendarSlice";
+import { setSourceCalendar, setTargetCalendar, switchSourceAndTargetCalendar, setSourceDate, calculateTargetCalendarDate } from "../reducers/calendarSlice";
 
 
 const mapStateToProps = (state) => {
@@ -26,14 +26,8 @@ const mapDispatchToProps = (dispatch) => {
     switchSourceAndTargetCalendar: () => {
       dispatch(switchSourceAndTargetCalendar());
     },
-    setSourceYear: (year) => {
-      dispatch(setSourceYear({sourceYear: year}));
-    },
-    setSourceMonth: (month) => {
-      dispatch(setSourceMonth({sourceMonth: month}));
-    },
-    setSourceDay: (day) => {
-      dispatch(setSourceDay({sourceDay: day}));
+    setSourceDate: (payload) => {
+      dispatch(setSourceDate({sourceDate: payload}));
     },
     calculateTargetCalendarDate: () => {
       dispatch(calculateTargetCalendarDate());
@@ -49,9 +43,15 @@ class CalendarCard extends Component {
   componentDidMount() {
     // Initialize source calendar with today's date
     const today = new Date();
-    this.props.setSourceYear(today.getFullYear());
-    this.props.setSourceMonth(today.getMonth() + 1);
-    this.props.setSourceDay(today.getDate());
+    // this.props.setSourceYear(today.getFullYear());
+    // this.props.setSourceMonth(today.getMonth() + 1);
+    // this.props.setSourceDay(today.getDate());
+
+    this.props.setSourceDate({
+      year: today.getFullYear(),
+      month: today.getMonth() + 1,
+      day: today.getDate()
+    })
 
     this.props.calculateTargetCalendarDate();
   }

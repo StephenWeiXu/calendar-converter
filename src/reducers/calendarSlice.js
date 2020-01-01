@@ -10,12 +10,16 @@ const calendarSlice = createSlice({
     sourceCalendar: CALENDAR_TYPES.SOLAR,
     targetCalendar: CALENDAR_TYPES.LUNAR,
     reverseSourceTargetCalendarFlag: false,
-    sourceYear: 0,
-    sourceMonth: 0,
-    sourceDay: 0,
-    targetYear: 0,
-    targetMonth: 0,
-    targetDay: 0
+    sourceDate: {
+      year: 0,
+      month: 0,
+      day: 0
+    },
+    targetDate: {
+      year: 0,
+      month: 0,
+      day: 0
+    }
   },
   reducers: {
     setSourceCalendar(state, action) {
@@ -31,48 +35,38 @@ const calendarSlice = createSlice({
       
       state.reverseSourceTargetCalendarFlag = !state.reverseSourceTargetCalendarFlag;
     },
-    setSourceYear(state, action) {
-      state.sourceYear = Number(action.payload.sourceYear);
-      calculateTargetCalendarDate(state, {});
+    setSourceDate(state, action) {
+      const sourceDate = action.payload.sourceDate;
+      state.sourceDate.year = sourceDate.hasOwnProperty("year") ? Number(sourceDate.year) : state.sourceDate.year;
+      state.sourceDate.month = sourceDate.hasOwnProperty("month") ? Number(sourceDate.month) : state.sourceDate.month;
+      state.sourceDate.day = sourceDate.hasOwnProperty("day") ? Number(sourceDate.day) : state.sourceDate.day;
     },
-    setSourceMonth(state, action) {
-      state.sourceMonth = Number(action.payload.sourceMonth);
-      calculateTargetCalendarDate(state, {});
-    },
-    setSourceDay(state, action) {
-      state.sourceDay = Number(action.payload.sourceDay);
-      calculateTargetCalendarDate(state, {});
-    },
-
-    setTargetYear(state, action) {
-      state.targetYear = Number(action.payload.targetYear);
-    },
-    setTargetMonth(state, action) {
-      state.targetMonth = Number(action.payload.targetMonth);
-    },
-    setTargetDay(state, action) {
-      state.targetDay = Number(action.payload.targetDay);
+    setTargetDate(state, action) {
+      const targetDate = action.payload.targetDate;
+      state.targetDate.year = targetDate.hasOwnProperty("year") ? Number(targetDate.year) : state.targetDate.year;
+      state.targetDate.month = targetDate.hasOwnProperty("month") ? Number(targetDate.month) : state.targetDate.month;
+      state.targetDate.day = targetDate.hasOwnProperty("day") ? Number(targetDate.day) : state.targetDate.day;
     },
     calculateTargetCalendarDate(state) {
       if (state.sourceCalendar === CALENDAR_TYPES.SOLAR && state.targetCalendar === CALENDAR_TYPES.LUNAR) {
-        console.log(state.sourceYear, state.sourceMonth, state.sourceDay);
-        const targetCalendarDate = converterUtil.solarToLunar(state.sourceYear, state.sourceMonth, state.sourceDay);
-        console.log(targetCalendarDate);
-        state.targetYear = targetCalendarDate.lunarYear;
-        state.targetMonth = targetCalendarDate.lunarMonth;
-        state.targetDay = targetCalendarDate.lunarDay;
+        // console.log(state.sourceDate);
+        const targetDate = converterUtil.solarToLunar(state.sourceDate);
+        console.log(targetDate);
+        state.targetDate.year = targetDate.year;
+        state.targetDate.month = targetDate.month;
+        state.targetDate.day = targetDate.day;
       } else {
         console.error("unknown source calendar and target calendar");
       }
     },
     calculateSourceCalendarDate(state) {
       if (state.sourceCalendar === CALENDAR_TYPES.SOLAR && state.targetCalendar === CALENDAR_TYPES.LUNAR) {
-        console.log(state.targetYear, state.targetMonth, state.targetDay);
-        const sourceCalendarDate = converterUtil.lunarToSolar(state.targetYear, state.targetMonth, state.targetDay);
-        console.log(sourceCalendarDate);
-        state.sourceYear = sourceCalendarDate.solarYear;
-        state.sourceMonth = sourceCalendarDate.solarMonth;
-        state.sourceDay = sourceCalendarDate.solarDay;
+        console.log(state.targetDate);
+        const sourceDate = converterUtil.lunarToSolar(state.targetDate);
+        console.log(sourceDate);
+        state.sourceDate.year = sourceDate.year;
+        state.sourceDate.month = sourceDate.month;
+        state.sourceDate.day = sourceDate.day;
       } else {
         console.error("unknown source calendar and target calendar");
       }
@@ -81,15 +75,11 @@ const calendarSlice = createSlice({
 });
 
 export const {
+  setSourceDate,
+  setTargetDate,
   setSourceCalendar,
   setTargetCalendar,
   switchSourceAndTargetCalendar,
-  setSourceYear,
-  setSourceMonth,
-  setSourceDay,
-  setTargetYear,
-  setTargetMonth,
-  setTargetDay,
   calculateTargetCalendarDate,
   calculateSourceCalendarDate
 }  = calendarSlice.actions;
