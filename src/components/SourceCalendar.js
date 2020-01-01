@@ -30,11 +30,12 @@ class SourceCalendar extends Component {
   }
 
   getMonthList() {
+    const monthList = this.props.sourceDate.monthList;
     return (
       <select onChange={(e) => this.onSourceMonthChange(e)}>
-        {Object.keys(GREGORIAN_CALENDAR_MONTHS).map((monthKey) => {
-          const isSelected = this.props.sourceDate.month === Number(monthKey);
-          return <option key={monthKey} value={monthKey} selected={isSelected}>{GREGORIAN_CALENDAR_MONTHS[monthKey]}</option>;
+        {monthList.map((month, index) => {
+          const isSelected = this.props.sourceDate.monthIndex === index;
+          return <option key={index} value={month} selected={isSelected}>{monthList[index]}</option>;
         })}
       </select>
     )
@@ -46,7 +47,7 @@ class SourceCalendar extends Component {
   }
 
   onSourceMonthChange(event) {
-    this.props.setSourceDate({month: event.target.value});
+    this.props.setSourceDate({monthIndex: event.target.value});
     this.props.calculateTargetCalendarDate();
   }
 

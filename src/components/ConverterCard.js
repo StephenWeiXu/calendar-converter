@@ -5,6 +5,9 @@ import { CALENDAR_TYPES } from "../utils/constantsUtil";
 import SourceCalendar from "./SourceCalendar";
 import TargetCalendar from "./TargetCalendar";
 import { setSourceCalendar, setTargetCalendar, switchSourceAndTargetCalendar, setSourceDate, calculateTargetCalendarDate } from "../reducers/calendarSlice";
+import {
+  GREGORIAN_CALENDAR_MONTHS
+} from "../utils/constantsUtil";
 
 
 const mapStateToProps = (state) => {
@@ -49,7 +52,8 @@ class CalendarCard extends Component {
 
     this.props.setSourceDate({
       year: today.getFullYear(),
-      month: today.getMonth() + 1,
+      monthList: GREGORIAN_CALENDAR_MONTHS,
+      monthIndex: today.getMonth(),
       day: today.getDate()
     })
 

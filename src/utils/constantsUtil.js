@@ -1,5 +1,5 @@
 export const CALENDAR_TYPES = {
-  SOLAR: "Gregorian",
+  GREGORIAN: "Gregorian",
   LUNAR: "Lunar",
   HEBREW: "Hebrew",
   ISLAMIC: "Islamic",
@@ -11,19 +11,35 @@ export const CALENDAR_TYPES = {
   UNIX: "Unix"
 }
 
-export const GREGORIAN_CALENDAR_MONTHS = {
-  0: "---",
-  1: "Janurary",
-  2: "February",
-  3: "March",
-  4: "April",
-  5: "May",
-  6: "June",
-  7: "July",
-  8: "August",
-  9: "September",
-  10: "October",
-  11: "November",
-  12: "December"
-};
+export const GREGORIAN_CALENDAR_MONTHS = [
+  "Janurary",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December"
+];
 
+export const LUNAR_CALENDAR_MONTHS = GREGORIAN_CALENDAR_MONTHS;
+
+export const HEBREW_CALENDAR_MONTHS = [
+  "Nisan",
+  "Iyyar",
+  "Sivan",
+  "Tammuz",
+  "Av",
+  "Elul",
+  "Tishri",
+  "Heshvan",
+  "Kislev",
+  "Teveth",
+  "Shevat",
+  "Adar",
+  "Veadar"
+];

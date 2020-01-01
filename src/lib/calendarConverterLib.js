@@ -63,6 +63,10 @@ function previous_or_current_weekday(weekday, jd) {
   return search_weekday(weekday, jd, 1, 0);
 }
 
+function mod(param1, param2) {
+  return param1 % param2;
+}
+
 function TestSomething() {
 }
 
@@ -77,7 +81,7 @@ function leap_gregorian(year) {
 
 var GREGORIAN_EPOCH = 1721425.5;
 
-function gregorian_to_jd(year, month, day) {
+export function gregorian_to_jd(year, month, day) {
   return (GREGORIAN_EPOCH - 1) +
     (365 * (year - 1)) +
     Math.floor((year - 1) / 4) +
@@ -92,7 +96,7 @@ function gregorian_to_jd(year, month, day) {
 
 //  JD_TO_GREGORIAN  --  Calculate Gregorian calendar date from Julian day
 
-function jd_to_gregorian(jd) {
+export function jd_to_gregorian(jd) {
   var wjd, depoch, quadricent, dqc, cent, dcent, quad, dquad,
     yindex, dyindex, year, yearday, leapadj;
 
@@ -258,7 +262,7 @@ function hebrew_year_months(year) {
 //  Sunday, Wednesday, and Friday as start of the new year.
 
 function hebrew_delay_1(year) {
-  var months, days, parts;
+  var months, day, parts;
 
   months = Math.floor(((235 * year) - 234) / 19);
   parts = 12084 + (13753 * months);
@@ -324,7 +328,7 @@ function hebrew_month_days(year, month) {
 
 //  Finally, wrap it all up into...
 
-function hebrew_to_jd(year, month, day) {
+export function hebrew_to_jd(year, month, day) {
   var jd, mon, months;
 
   months = hebrew_year_months(year);
@@ -352,7 +356,7 @@ function hebrew_to_jd(year, month, day) {
                       the inverse function, and is this very
                       slow.  */
 
-function jd_to_hebrew(jd) {
+export function jd_to_hebrew(jd) {
   var year, month, day, i, count, first;
 
   jd = Math.floor(jd) + 0.5;
@@ -1415,5 +1419,62 @@ function presetDataToRequest(s) {
   if (!set) {
     setDateToToday();
     calcGregorian();
+  }
+}
+
+
+export function gregorianToHebrewConverter(gregorianDate, hebrewDate) {
+  let hebcal, hmindex;
+  
+  let julianDay = gregorian_to_jd(gregorianDate.year, gregorianDate.monthIndex + 1, gregorianDate.day);
+  // + (Math.floor(sec + 60 * (min + 60 * hour) + 0.5) / 86400.0);
+
+  hebcal = jd_to_hebrew(julianDay);
+  if (hebrew_leap(hebcal[0])) {
+    hebrewDate.monthList.length = 13;
+    hebrewDate.monthList[11] = "Adar I";
+    hebrewDate.monthList[12] = "Veadar";
+  } else {
+    hebrewDate.monthList.length = 12;
+    hebrewDate.monthList[11] = "Adar";
+  }
+  hebrewDate.year = hebcal[0];
+  hebrewDate.monthIndex = hebcal[1] - 1;
+  hebrewDate.day = hebcal[2];
+  hmindex = hebcal[1];
+  if (hmindex == 12 && !hebrew_leap(hebcal[0])) {
+    hmindex = 14;
+  }
+  hebrewDate.hebrewMonthImg = "figures/hebrew_month_" +
+    hmindex + ".gif";
+  switch (hebrew_year_days(hebcal[0])) {
+    case 353:
+      hebrewDate.leap = "Common deficient (353 days)";
+      break;
+
+    case 354:
+      hebrewDate.leap = "Common regular (354 days)";
+      break;
+
+    case 355:
+      hebrewDate.leap = "Common complete (355 days)";
+      break;
+
+    case 383:
+      hebrewDate.leap = "Embolismic deficient (383 days)";
+      break;
+
+    case 384:
+      hebrewDate.leap = "Embolismic regular (384 days)";
+      break;
+
+    case 385:
+      hebrewDate.leap = "Embolismic complete (385 days)";
+      break;
+
+    default:
+      hebrewDate.leap = "Invalid year length: " +
+        hebrew_year_days(hebcal[0]) + " days.";
+      break;
   }
 }
