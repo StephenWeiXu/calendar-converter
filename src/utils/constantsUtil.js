@@ -28,7 +28,7 @@ export const GREGORIAN_CALENDAR_MONTHS = [
 
 export const LUNAR_CALENDAR_MONTHS = GREGORIAN_CALENDAR_MONTHS;
 
-export const HEBREW_CALENDAR_MONTHS = [
+export let HEBREW_CALENDAR_MONTHS = [
   "Nisan",
   "Iyyar",
   "Sivan",

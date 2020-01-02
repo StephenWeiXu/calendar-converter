@@ -34,7 +34,7 @@ class TargetCalendar extends Component {
   }
 
   onTargetMonthChange(event) {
-    this.props.setTargetDate({month: event.target.value});
+    this.props.setTargetDate({monthIndex: event.target.value});
     this.props.calculateSourceCalendarDate();
   }
 
@@ -49,7 +49,7 @@ class TargetCalendar extends Component {
       <select onChange={(e) => this.onTargetMonthChange(e)}>
         {monthList.map((month, index) => {
           const isSelected = this.props.targetDate.monthIndex === index;
-          return <option key={index} value={month} selected={isSelected}>{monthList[index]}</option>;
+          return <option key={index} value={index} selected={isSelected}>{monthList[index]}</option>;
         })}
       </select>
     )

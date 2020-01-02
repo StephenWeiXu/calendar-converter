@@ -68,17 +68,18 @@ const calendarSlice = createSlice({
       state.targetDate.day = targetDate.day;
     },
     calculateSourceCalendarDate(state) {
+      let sourceDate;
       if (state.sourceCalendar === CALENDAR_TYPES.GREGORIAN && state.targetCalendar === CALENDAR_TYPES.LUNAR) {
-        console.log(state.targetDate);
-        const sourceDate = converterUtil.lunarToGregorian(state.targetDate);
-        console.log(sourceDate);
-        state.sourceDate.year = sourceDate.year;
-        state.sourceDate.monthIndex = sourceDate.monthList;
-        state.sourceDate.monthIndex = sourceDate.monthIndex;
-        state.sourceDate.day = sourceDate.day;
+        sourceDate = converterUtil.lunarToGregorian(state.targetDate);
+      } else if (state.sourceCalendar === CALENDAR_TYPES.GREGORIAN && state.targetCalendar === CALENDAR_TYPES.HEBREW) {
+        sourceDate = converterUtil.hebrewToGregorian(state.targetDate);
       } else {
         console.error("unknown source calendar and target calendar");
       }
+      state.sourceDate.year = sourceDate.year;
+      state.sourceDate.monthList = sourceDate.monthList;
+      state.sourceDate.monthIndex = sourceDate.monthIndex;
+      state.sourceDate.day = sourceDate.day;
     }
   }
 });

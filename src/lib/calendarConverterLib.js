@@ -98,7 +98,7 @@ export function gregorian_to_jd(year, month, day) {
 
 export function jd_to_gregorian(jd) {
   var wjd, depoch, quadricent, dqc, cent, dcent, quad, dquad,
-    yindex, dyindex, year, yearday, leapadj;
+    yindex, dyindex, year, yearday, leapadj, month, day;
 
   wjd = Math.floor(jd - 0.5) + 0.5;
   depoch = wjd - GREGORIAN_EPOCH;
@@ -1424,20 +1424,24 @@ function presetDataToRequest(s) {
 
 
 export function gregorianToHebrewConverter(gregorianDate, hebrewDate) {
-  let hebcal, hmindex;
-  
-  let julianDay = gregorian_to_jd(gregorianDate.year, gregorianDate.monthIndex + 1, gregorianDate.day);
-  // + (Math.floor(sec + 60 * (min + 60 * hour) + 0.5) / 86400.0);
+  let hebcal,hmindex;
+  let min = 0, hour = 0, sec = 0;
 
+  let julianDay = gregorian_to_jd(gregorianDate.year, gregorianDate.monthIndex + 1, gregorianDate.day) + (Math.floor(sec + 60 * (min + 60 * hour) + 0.5) / 86400.0);
+
+  // Deep copy before modification so that it doesn't set the array read only
+  let hebrewMonth = JSON.parse(JSON.stringify(hebrewDate.monthList));
   hebcal = jd_to_hebrew(julianDay);
   if (hebrew_leap(hebcal[0])) {
-    hebrewDate.monthList.length = 13;
-    hebrewDate.monthList[11] = "Adar I";
-    hebrewDate.monthList[12] = "Veadar";
+    hebrewMonth.length = 13;
+    hebrewMonth[11] = "Adar I";
+    hebrewMonth[12] = "Veadar";
   } else {
-    hebrewDate.monthList.length = 12;
-    hebrewDate.monthList[11] = "Adar";
+    hebrewMonth.length = 12;
+    hebrewMonth[11] = "Adar";
   }
+  hebrewDate.monthList = hebrewMonth;
+  
   hebrewDate.year = hebcal[0];
   hebrewDate.monthIndex = hebcal[1] - 1;
   hebrewDate.day = hebcal[2];
@@ -1478,3 +1482,22 @@ export function gregorianToHebrewConverter(gregorianDate, hebrewDate) {
       break;
   }
 }
+
+
+export function hebrewToGregorianConverter(hebrewDate, gregorianDate) {
+  let julianDay = hebrew_to_jd(
+    hebrewDate.year,
+    hebrewDate.monthIndex + 1,
+    hebrewDate.day
+  );
+
+  let date = jd_to_gregorian(julianDay);
+  // let time = jhms(julianDay);
+  gregorianDate.year = date[0];
+  gregorianDate.monthIndex = date[1] - 1;
+  gregorianDate.day = date[2];
+  // document.gregorian.hour.value = pad(time[0], 2, " ");
+  // document.gregorian.min.value = pad(time[1], 2, "0");
+  // document.gregorian.sec.value = pad(time[2], 2, "0");
+}
+

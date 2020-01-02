@@ -1,8 +1,15 @@
 import {Solar, Lunar, LunarSolarConverter} from "../lib/LunarSolarConverter";
-import {gregorianToHebrewConverter} from "../lib/calendarConverterLib";
+import {
+  gregorianToHebrewConverter,
+  hebrewToGregorianConverter
+} from "../lib/calendarConverterLib";
 import {GregorianDate, LunarDate, HebrewDate} from "./calendarClassesUtil";
 
 export class ConverterUtil {
+  constructor() {
+    this.gregorianDate = new GregorianDate();
+    this.hebrewDate = new HebrewDate();
+  }
  
   gregorianToLunar(gregorianDate) {
     let lunarDate = new LunarDate();
@@ -39,8 +46,12 @@ export class ConverterUtil {
   }
 
   gregorianToHebrew(gregorianDate) {
-    let hebrewDate = new HebrewDate();
-    gregorianToHebrewConverter(gregorianDate, hebrewDate);
-    return hebrewDate;
+    gregorianToHebrewConverter(gregorianDate, this.hebrewDate);
+    return this.hebrewDate;
+  }
+
+  hebrewToGregorian(hebrewDate) {
+    hebrewToGregorianConverter(hebrewDate, this.gregorianDate);
+    return this.gregorianDate;
   }
 }

@@ -4,7 +4,14 @@ import { Container, Row, Col, Card, Dropdown, DropdownButton, Button, ButtonGrou
 import { CALENDAR_TYPES } from "../utils/constantsUtil";
 import SourceCalendar from "./SourceCalendar";
 import TargetCalendar from "./TargetCalendar";
-import { setSourceCalendar, setTargetCalendar, switchSourceAndTargetCalendar, setSourceDate, calculateTargetCalendarDate } from "../reducers/calendarSlice";
+import {
+  setSourceCalendar,
+  setTargetCalendar,
+  switchSourceAndTargetCalendar,
+  setSourceDate,
+  calculateSourceCalendarDate,
+  calculateTargetCalendarDate 
+} from "../reducers/calendarSlice";
 import {
   GREGORIAN_CALENDAR_MONTHS
 } from "../utils/constantsUtil";
@@ -32,6 +39,9 @@ const mapDispatchToProps = (dispatch) => {
     setSourceDate: (payload) => {
       dispatch(setSourceDate({sourceDate: payload}));
     },
+    calculateSourceCalendarDate: () => {
+      dispatch(calculateSourceCalendarDate());
+    },
     calculateTargetCalendarDate: () => {
       dispatch(calculateTargetCalendarDate());
     }
@@ -46,10 +56,6 @@ class CalendarCard extends Component {
   componentDidMount() {
     // Initialize source calendar with today's date
     const today = new Date();
-    // this.props.setSourceYear(today.getFullYear());
-    // this.props.setSourceMonth(today.getMonth() + 1);
-    // this.props.setSourceDay(today.getDate());
-
     this.props.setSourceDate({
       year: today.getFullYear(),
       monthList: GREGORIAN_CALENDAR_MONTHS,
@@ -69,8 +75,10 @@ class CalendarCard extends Component {
     const calendarName = event.target.dataset.calendarName;
     if (isSource) {
       this.props.setSourceCalendar(calendarName);
+      this.props.calculateSourceCalendarDate();
     } else {
       this.props.setTargetCalendar(calendarName);
+      this.props.calculateTargetCalendarDate();
     }
   }
 
