@@ -53,13 +53,16 @@ const calendarSlice = createSlice({
     },
     calculateTargetCalendarDate(state) {
       let targetDate;
-      if (state.sourceCalendar === CALENDAR_TYPES.GREGORIAN && state.targetCalendar === CALENDAR_TYPES.LUNAR) {
+      if (state.sourceCalendar === state.targetCalendar) {
+        targetDate = state.sourceDate;
+      } else if (state.sourceCalendar === CALENDAR_TYPES.GREGORIAN && state.targetCalendar === CALENDAR_TYPES.LUNAR) {
         targetDate = converterUtil.gregorianToLunar(state.sourceDate);
         console.log(targetDate);
       } else if (state.sourceCalendar === CALENDAR_TYPES.GREGORIAN && state.targetCalendar === CALENDAR_TYPES.HEBREW) {
         targetDate = converterUtil.gregorianToHebrew(state.sourceDate);
       } else {
         console.error("unknown source calendar and target calendar");
+        targetDate = {};
       }
 
       state.targetDate.year = targetDate.year;
@@ -69,13 +72,17 @@ const calendarSlice = createSlice({
     },
     calculateSourceCalendarDate(state) {
       let sourceDate;
-      if (state.sourceCalendar === CALENDAR_TYPES.GREGORIAN && state.targetCalendar === CALENDAR_TYPES.LUNAR) {
+      if (state.sourceCalendar === state.targetCalendar) {
+        sourceDate = state.targetDate;
+      } else if (state.sourceCalendar === CALENDAR_TYPES.GREGORIAN && state.targetCalendar === CALENDAR_TYPES.LUNAR) {
         sourceDate = converterUtil.lunarToGregorian(state.targetDate);
       } else if (state.sourceCalendar === CALENDAR_TYPES.GREGORIAN && state.targetCalendar === CALENDAR_TYPES.HEBREW) {
         sourceDate = converterUtil.hebrewToGregorian(state.targetDate);
       } else {
         console.error("unknown source calendar and target calendar");
+        sourceDate = {};
       }
+
       state.sourceDate.year = sourceDate.year;
       state.sourceDate.monthList = sourceDate.monthList;
       state.sourceDate.monthIndex = sourceDate.monthIndex;

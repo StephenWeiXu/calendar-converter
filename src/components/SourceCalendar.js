@@ -35,7 +35,7 @@ class SourceCalendar extends Component {
       <select onChange={(e) => this.onSourceMonthChange(e)}>
         {monthList.map((month, index) => {
           const isSelected = this.props.sourceDate.monthIndex === index;
-          return <option key={index} value={index} selected={isSelected}>{monthList[index]}</option>;
+          return <option key={index} value={index} selected={isSelected}>{month}</option>;
         })}
       </select>
     )

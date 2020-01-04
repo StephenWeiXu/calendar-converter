@@ -102,6 +102,16 @@ class CalendarCard extends Component {
 
     Object.keys(CALENDAR_TYPES).map((calendarKey) => {
       let calendarName = CALENDAR_TYPES[calendarKey];
+
+      // Remove the same calendar in the other card to avoid redundancy;
+      if (isSource && calendarName === this.props.targetCalendar) {
+        return;
+      }
+      if (!isSource && calendarName === this.props.sourceCalendar) {
+        return;
+      }
+
+      // Get visiable calendar names to show and hidden calendar names to hide in dropdown
       if (calendarName !== currentCalendar) {
         if (visibleCalendars.length < visibileCount) {
           visibleCalendars.push(calendarKey);
