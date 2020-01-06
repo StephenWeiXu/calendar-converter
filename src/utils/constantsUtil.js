@@ -1,6 +1,6 @@
 export const CALENDAR_TYPES = {
   GREGORIAN: "Gregorian",
-  LUNAR: "Lunar",
+  // LUNAR: "Lunar",
   HEBREW: "Hebrew",
   ISLAMIC: "Islamic",
   JULIAN: "Julian",
@@ -9,6 +9,12 @@ export const CALENDAR_TYPES = {
   INDIANCIVIL: "Indian Civil",
   FRENCHREPUBLICAN: "French Republican",
   UNIX: "Unix"
+}
+
+export const DATE_TYPES = {
+  YEAR: "year",
+  MONTH_INDEX: "monthIndex",
+  DAY: "day"
 }
 
 export const GREGORIAN_CALENDAR_MONTHS = [
@@ -42,4 +48,19 @@ export let HEBREW_CALENDAR_MONTHS = [
   "Shevat",
   "Adar",
   "Veadar"
+];
+
+export const ISLAMIC_CALENDAR_MONTHS = [
+  "Muharram",
+  "Safar",
+  "Rabi`al-Awwal",
+  "Rabi`ath-Thani",
+  "Jumada l-Ula",
+  "Jumada t-Tania",
+  "Rajab",
+  "Sha`ban",
+  "Ramadan",
+  "Shawwal",
+  "Dhu l-Qa`da",
+  "Dhu l-Hijja"
 ];

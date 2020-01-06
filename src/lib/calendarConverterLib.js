@@ -1422,12 +1422,9 @@ function presetDataToRequest(s) {
   }
 }
 
-
-export function gregorianToHebrewConverter(gregorianDate, hebrewDate) {
-  let hebcal,hmindex;
+export function julianDayToHebrewConverter(julianDay, hebrewDate) {
+  let hebcal, hmindex;
   let min = 0, hour = 0, sec = 0;
-
-  let julianDay = gregorian_to_jd(gregorianDate.year, gregorianDate.monthIndex + 1, gregorianDate.day) + (Math.floor(sec + 60 * (min + 60 * hour) + 0.5) / 86400.0);
 
   // Deep copy before modification so that it doesn't set the array read only
   let hebrewMonth = JSON.parse(JSON.stringify(hebrewDate.monthList));
@@ -1483,21 +1480,12 @@ export function gregorianToHebrewConverter(gregorianDate, hebrewDate) {
   }
 }
 
-
-export function hebrewToGregorianConverter(hebrewDate, gregorianDate) {
-  let julianDay = hebrew_to_jd(
-    hebrewDate.year,
-    hebrewDate.monthIndex + 1,
-    hebrewDate.day
-  );
-
-  let date = jd_to_gregorian(julianDay);
-  // let time = jhms(julianDay);
-  gregorianDate.year = date[0];
-  gregorianDate.monthIndex = date[1] - 1;
-  gregorianDate.day = date[2];
-  // document.gregorian.hour.value = pad(time[0], 2, " ");
-  // document.gregorian.min.value = pad(time[1], 2, "0");
-  // document.gregorian.sec.value = pad(time[2], 2, "0");
+export function julianDayToIslamicConverter(julianDay, islamicDate) {
+  let islcal = jd_to_islamic(julianDay);
+  islamicDate.year = islcal[0];
+  islamicDate.monthIndex = islcal[1] - 1;
+  islamicDate.day = islcal[2];
+  // islamicDate.wday = "yawm " + ISLAMIC_WEEKDAYS[weekday];
+  // islamicDate.leap = NormLeap[leap_islamic(islcal[0]) ? 1 : 0];
 }
 

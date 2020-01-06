@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { ConverterUtil } from "../utils/converterUtil";
 import { CALENDAR_TYPES } from "../utils/constantsUtil";
+import { ConverterUtil, calendarConversionFactory } from "../utils/converterUtil";
+
 
 const converterUtil = new ConverterUtil();
 
@@ -10,6 +11,7 @@ const calendarSlice = createSlice({
     sourceCalendar: CALENDAR_TYPES.GREGORIAN,
     targetCalendar: CALENDAR_TYPES.HEBREW,
     reverseSourceTargetCalendarFlag: false,
+    julianDay: 0,
     sourceDate: {
       year: 0,
       monthList: [],
@@ -37,6 +39,9 @@ const calendarSlice = createSlice({
       
       state.reverseSourceTargetCalendarFlag = !state.reverseSourceTargetCalendarFlag;
     },
+    setJulianDay(state, action) {
+      state.julianDay = action.payload.julianDay;
+    },
     setSourceDate(state, action) {
       const sourceDate = action.payload.sourceDate;
       state.sourceDate.year = sourceDate.hasOwnProperty("year") ? Number(sourceDate.year) : state.sourceDate.year;
@@ -52,18 +57,7 @@ const calendarSlice = createSlice({
       state.targetDate.day = targetDate.hasOwnProperty("day") ? Number(targetDate.day) : state.targetDate.day;
     },
     calculateTargetCalendarDate(state) {
-      let targetDate;
-      if (state.sourceCalendar === state.targetCalendar) {
-        targetDate = state.sourceDate;
-      } else if (state.sourceCalendar === CALENDAR_TYPES.GREGORIAN && state.targetCalendar === CALENDAR_TYPES.LUNAR) {
-        targetDate = converterUtil.gregorianToLunar(state.sourceDate);
-        console.log(targetDate);
-      } else if (state.sourceCalendar === CALENDAR_TYPES.GREGORIAN && state.targetCalendar === CALENDAR_TYPES.HEBREW) {
-        targetDate = converterUtil.gregorianToHebrew(state.sourceDate);
-      } else {
-        console.error("unknown source calendar and target calendar");
-        targetDate = {};
-      }
+      const targetDate = calendarConversionFactory(state.targetCalendar, state.julianDay);
 
       state.targetDate.year = targetDate.year;
       state.targetDate.monthList = targetDate.monthList;
@@ -71,17 +65,7 @@ const calendarSlice = createSlice({
       state.targetDate.day = targetDate.day;
     },
     calculateSourceCalendarDate(state) {
-      let sourceDate;
-      if (state.sourceCalendar === state.targetCalendar) {
-        sourceDate = state.targetDate;
-      } else if (state.sourceCalendar === CALENDAR_TYPES.GREGORIAN && state.targetCalendar === CALENDAR_TYPES.LUNAR) {
-        sourceDate = converterUtil.lunarToGregorian(state.targetDate);
-      } else if (state.sourceCalendar === CALENDAR_TYPES.GREGORIAN && state.targetCalendar === CALENDAR_TYPES.HEBREW) {
-        sourceDate = converterUtil.hebrewToGregorian(state.targetDate);
-      } else {
-        console.error("unknown source calendar and target calendar");
-        sourceDate = {};
-      }
+      const sourceDate = calendarConversionFactory(state.sourceCalendar, state.julianDay);
 
       state.sourceDate.year = sourceDate.year;
       state.sourceDate.monthList = sourceDate.monthList;
@@ -92,6 +76,7 @@ const calendarSlice = createSlice({
 });
 
 export const {
+  setJulianDay,
   setSourceDate,
   setTargetDate,
   setSourceCalendar,

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Container, Row, Col, Card, Dropdown, DropdownButton, Button, ButtonGroup} from "react-bootstrap";
-import { CALENDAR_TYPES } from "../utils/constantsUtil";
+import { CALENDAR_TYPES, GREGORIAN_CALENDAR_MONTHS} from "../utils/constantsUtil";
 import SourceCalendar from "./SourceCalendar";
 import TargetCalendar from "./TargetCalendar";
 import {
@@ -9,12 +9,13 @@ import {
   setTargetCalendar,
   switchSourceAndTargetCalendar,
   setSourceDate,
+  setTargetDate,
+  setJulianDay,
   calculateSourceCalendarDate,
   calculateTargetCalendarDate 
 } from "../reducers/calendarSlice";
-import {
-  GREGORIAN_CALENDAR_MONTHS
-} from "../utils/constantsUtil";
+import { GregorianDate } from "../utils/calendarClassesUtil";
+import { ConverterUtil } from "../utils/converterUtil";
 
 
 const mapStateToProps = (state) => {
@@ -36,8 +37,14 @@ const mapDispatchToProps = (dispatch) => {
     switchSourceAndTargetCalendar: () => {
       dispatch(switchSourceAndTargetCalendar());
     },
-    setSourceDate: (payload) => {
-      dispatch(setSourceDate({sourceDate: payload}));
+    setJulianDay: (julianDayNumber) => {
+      dispatch(setJulianDay({julianDay: julianDayNumber}));
+    },
+    setSourceDate: () => {
+      dispatch(setSourceDate());
+    },
+    setTargetDate: () => {
+      dispatch(setTargetDate());
     },
     calculateSourceCalendarDate: () => {
       dispatch(calculateSourceCalendarDate());
@@ -56,13 +63,10 @@ class CalendarCard extends Component {
   componentDidMount() {
     // Initialize source calendar with today's date
     const today = new Date();
-    this.props.setSourceDate({
-      year: today.getFullYear(),
-      monthList: GREGORIAN_CALENDAR_MONTHS,
-      monthIndex: today.getMonth(),
-      day: today.getDate()
-    })
-
+    const converterUtil = new ConverterUtil();
+    let julianDay = converterUtil.gregorianToJulianDay(today.getFullYear(), today.getMonth(), today.getDate());
+    this.props.setJulianDay(julianDay);
+    this.props.calculateSourceCalendarDate();
     this.props.calculateTargetCalendarDate();
   }
 
@@ -104,12 +108,12 @@ class CalendarCard extends Component {
       let calendarName = CALENDAR_TYPES[calendarKey];
 
       // Remove the same calendar in the other card to avoid redundancy;
-      if (isSource && calendarName === this.props.targetCalendar) {
-        return;
-      }
-      if (!isSource && calendarName === this.props.sourceCalendar) {
-        return;
-      }
+      // if (isSource && calendarName === this.props.targetCalendar) {
+      //   return;
+      // }
+      // if (!isSource && calendarName === this.props.sourceCalendar) {
+      //   return;
+      // }
 
       // Get visiable calendar names to show and hidden calendar names to hide in dropdown
       if (calendarName !== currentCalendar) {

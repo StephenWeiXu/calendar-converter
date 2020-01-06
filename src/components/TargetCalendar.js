@@ -1,14 +1,18 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { GREGORIAN_CALENDAR_MONTHS } from "../utils/constantsUtil";
-import { setTargetDate, calculateSourceCalendarDate} from "../reducers/calendarSlice";
+import { setJulianDay, setTargetDate, calculateSourceCalendarDate} from "../reducers/calendarSlice";
+import { ConverterUtil } from "../utils/converterUtil";
+import { DATE_TYPES } from "../utils/constantsUtil";
+
+
+const converterUtil = new ConverterUtil();
 
 const mapStateToProps = (state) => {
   return {
-    targetDate: state.calendar.targetDate,
-    targetYear: state.calendar.targetYear,
-    targetMonth: state.calendar.targetMonth,
-    targetDay: state.calendar.targetDay
+    year: state.calendar.targetDate.year,
+    monthList: state.calendar.targetDate.monthList,
+    monthIndex: state.calendar.targetDate.monthIndex,
+    day: state.calendar.targetDate.day
   };
 };
 
@@ -16,6 +20,9 @@ const mapDispatchToProps = (dispatch) => {
   return {
     setTargetDate: (payload) => {
       dispatch(setTargetDate({targetDate: payload}));
+    },
+    setJulianDay: (julianDayNumber) => {
+      dispatch(setJulianDay({julianDay: julianDayNumber}));
     },
     calculateSourceCalendarDate: () => {
       dispatch(calculateSourceCalendarDate());
@@ -28,39 +35,44 @@ class TargetCalendar extends Component {
     super(props);
   }
 
-  onTargetYearChange(event) {
-    this.props.setTargetDate({year: event.target.value});
+  onDateChange(event, type) {
+    let julianDay;
+    switch(type) {
+      case DATE_TYPES.YEAR:
+        this.props.setTargetDate({year: event.target.value});
+        julianDay = converterUtil.gregorianToJulianDay(Number(event.target.value), this.props.monthIndex, this.props.day);
+        break;
+      case DATE_TYPES.MONTH_INDEX:
+        this.props.setTargetDate({monthIndex: event.target.value});
+        julianDay = converterUtil.gregorianToJulianDay(this.props.year, Number(event.target.value), this.props.day);
+        break;
+      case DATE_TYPES.DAY:
+        this.props.setTargetDate({day: event.target.value});
+        julianDay = converterUtil.gregorianToJulianDay(this.props.year, this.props.monthIndex, Number(event.target.value));
+        break;
+    }
+    this.props.setJulianDay(julianDay);
     this.props.calculateSourceCalendarDate();
   }
 
-  onTargetMonthChange(event) {
-    this.props.setTargetDate({monthIndex: event.target.value});
-    this.props.calculateSourceCalendarDate();
+  getDisplayTargetYear() {
+    return this.props.year === 0 ? "" : this.props.year;
   }
 
-  onTargetDayChange(event) {
-    this.props.setTargetDate({day: event.target.value});
-    this.props.calculateSourceCalendarDate();
-  }
-
-  getTargetMonthList() {
-    const monthList = this.props.targetDate.monthList;
+  getMonthList() {
+    const monthList = this.props.monthList;
     return (
-      <select onChange={(e) => this.onTargetMonthChange(e)}>
+      <select onChange={(e) => this.onDateChange(e, DATE_TYPES.MONTH_INDEX)}>
         {monthList.map((month, index) => {
-          const isSelected = this.props.targetDate.monthIndex === index;
+          const isSelected = this.props.monthIndex === index;
           return <option key={index} value={index} selected={isSelected}>{month}</option>;
         })}
       </select>
     )
   }
 
-  getDisplayTargetYear() {
-    return this.props.targetDate.year === 0 ? "" : this.props.targetDate.year;
-  }
-
   getDisplayTargetDay() {
-    return this.props.targetDate.day === 0 ? "" : this.props.targetDate.day;
+    return this.props.day === 0 ? "" : this.props.day;
   }
 
   render() {
@@ -68,13 +80,25 @@ class TargetCalendar extends Component {
       <>
       <ul className="list-group list-group-horizontal calendar-group">
         <li className="list-group-item">
-          <input type="text" name="sourceYear" placeholder="yyyy" value={this.getDisplayTargetYear()} onChange={(e) => this.onTargetYearChange(e)} />
+          <input
+            type="text"
+            name="sourceYear"
+            placeholder="yyyy"
+            value={this.getDisplayTargetYear()}
+            onChange={(e) => this.onDateChange(e, DATE_TYPES.YEAR)}
+          />
         </li>
         <li className="list-group-item">
-          { this.getTargetMonthList() }
+          { this.getMonthList() }
         </li>
         <li className="list-group-item">
-          <input type="text" name="sourceDay" placeholder="dd" value={this.getDisplayTargetDay()} onChange={(e) => this.onTargetDayChange(e)} />
+          <input
+            type="text"
+            name="sourceDay"
+            placeholder="dd"
+            value={this.getDisplayTargetDay()}
+            onChange={(e) => this.onDateChange(e, DATE_TYPES.DAY)} 
+          />
         </li>
       </ul>
       </>
