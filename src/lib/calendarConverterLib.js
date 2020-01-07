@@ -499,7 +499,7 @@ var ISLAMIC_WEEKDAYS = new Array("al-'ahad", "al-'ithnayn",
   "ath-thalatha'", "al-'arb`a'",
   "al-khamis", "al-jum`a", "as-sabt");
 
-function islamic_to_jd(year, month, day) {
+export function islamic_to_jd(year, month, day) {
   return (day +
     Math.ceil(29.5 * (month - 1)) +
     (year - 1) * 354 +

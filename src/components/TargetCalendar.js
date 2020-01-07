@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { setJulianDay, setTargetDate, calculateSourceCalendarDate} from "../reducers/calendarSlice";
-import { ConverterUtil } from "../utils/converterUtil";
+import { ConverterUtil, calendarConversionToJulianDay } from "../utils/converterUtil";
 import { DATE_TYPES } from "../utils/constantsUtil";
 
 
@@ -9,6 +9,8 @@ const converterUtil = new ConverterUtil();
 
 const mapStateToProps = (state) => {
   return {
+    calendar: state.calendar.targetCalendar,
+    date: state.calendar.targetDate,
     year: state.calendar.targetDate.year,
     monthList: state.calendar.targetDate.monthList,
     monthIndex: state.calendar.targetDate.monthIndex,
@@ -36,21 +38,21 @@ class TargetCalendar extends Component {
   }
 
   onDateChange(event, type) {
-    let julianDay;
+    let julianDay, modifiedDate;
     switch(type) {
       case DATE_TYPES.YEAR:
-        this.props.setTargetDate({year: event.target.value});
-        julianDay = converterUtil.gregorianToJulianDay(Number(event.target.value), this.props.monthIndex, this.props.day);
+        modifiedDate = {year: Number(event.target.value), monthIndex: this.props.monthIndex, day: this.props.day};
         break;
       case DATE_TYPES.MONTH_INDEX:
-        this.props.setTargetDate({monthIndex: event.target.value});
-        julianDay = converterUtil.gregorianToJulianDay(this.props.year, Number(event.target.value), this.props.day);
+        modifiedDate = {year: this.props.year, monthIndex: Number(event.target.value), day: this.props.day};
         break;
       case DATE_TYPES.DAY:
-        this.props.setTargetDate({day: event.target.value});
-        julianDay = converterUtil.gregorianToJulianDay(this.props.year, this.props.monthIndex, Number(event.target.value));
+        modifiedDate = {year: this.props.year, monthIndex: this.props.monthIndex, day: Number(event.target.value)};
         break;
     }
+
+    this.props.setTargetDate(modifiedDate);
+    julianDay = calendarConversionToJulianDay(this.props.calendar, modifiedDate);
     this.props.setJulianDay(julianDay);
     this.props.calculateSourceCalendarDate();
   }
@@ -62,7 +64,7 @@ class TargetCalendar extends Component {
   getMonthList() {
     const monthList = this.props.monthList;
     return (
-      <select onChange={(e) => this.onDateChange(e, DATE_TYPES.MONTH_INDEX)}>
+      <select onChange={(e) => this.onDateChange(e, DATE_TYPES.MONTH_INDEX)} value={this.props.monthIndex}>
         {monthList.map((month, index) => {
           const isSelected = this.props.monthIndex === index;
           return <option key={index} value={index} selected={isSelected}>{month}</option>;

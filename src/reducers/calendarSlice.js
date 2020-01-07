@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { CALENDAR_TYPES } from "../utils/constantsUtil";
-import { ConverterUtil, calendarConversionFactory } from "../utils/converterUtil";
+import { ConverterUtil, calendarConversionFromJulianDay } from "../utils/converterUtil";
 
 
 const converterUtil = new ConverterUtil();
@@ -57,7 +57,7 @@ const calendarSlice = createSlice({
       state.targetDate.day = targetDate.hasOwnProperty("day") ? Number(targetDate.day) : state.targetDate.day;
     },
     calculateTargetCalendarDate(state) {
-      const targetDate = calendarConversionFactory(state.targetCalendar, state.julianDay);
+      const targetDate = calendarConversionFromJulianDay(state.targetCalendar, state.julianDay);
 
       state.targetDate.year = targetDate.year;
       state.targetDate.monthList = targetDate.monthList;
@@ -65,7 +65,7 @@ const calendarSlice = createSlice({
       state.targetDate.day = targetDate.day;
     },
     calculateSourceCalendarDate(state) {
-      const sourceDate = calendarConversionFactory(state.sourceCalendar, state.julianDay);
+      const sourceDate = calendarConversionFromJulianDay(state.sourceCalendar, state.julianDay);
 
       state.sourceDate.year = sourceDate.year;
       state.sourceDate.monthList = sourceDate.monthList;

@@ -64,7 +64,11 @@ class CalendarCard extends Component {
     // Initialize source calendar with today's date
     const today = new Date();
     const converterUtil = new ConverterUtil();
-    let julianDay = converterUtil.gregorianToJulianDay(today.getFullYear(), today.getMonth(), today.getDate());
+    let julianDay = converterUtil.gregorianToJulianDay({
+      year: today.getFullYear(),
+      monthIndex: today.getMonth(),
+      day: today.getDate()
+    });
     this.props.setJulianDay(julianDay);
     this.props.calculateSourceCalendarDate();
     this.props.calculateTargetCalendarDate();
