@@ -66,8 +66,7 @@ class TargetCalendar extends Component {
     return (
       <select onChange={(e) => this.onDateChange(e, DATE_TYPES.MONTH_INDEX)} value={this.props.monthIndex}>
         {monthList.map((month, index) => {
-          const isSelected = this.props.monthIndex === index;
-          return <option key={index} value={index} selected={isSelected}>{month}</option>;
+          return <option key={index} value={index}>{month}</option>;
         })}
       </select>
     )

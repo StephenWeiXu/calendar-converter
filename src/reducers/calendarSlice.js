@@ -9,7 +9,7 @@ const calendarSlice = createSlice({
   name: "sourceCalendar",
   initialState: {
     sourceCalendar: CALENDAR_TYPES.GREGORIAN,
-    targetCalendar: CALENDAR_TYPES.HEBREW,
+    targetCalendar: CALENDAR_TYPES.LUNAR,
     reverseSourceTargetCalendarFlag: false,
     julianDay: 0,
     sourceDate: {

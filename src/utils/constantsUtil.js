@@ -64,3 +64,5 @@ export const ISLAMIC_CALENDAR_MONTHS = [
   "Dhu l-Qa`da",
   "Dhu l-Hijja"
 ];
+
+export const JULIAN_CALENDAR_MONTHS = GREGORIAN_CALENDAR_MONTHS;

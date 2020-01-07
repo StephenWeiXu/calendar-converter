@@ -6,8 +6,10 @@ import {
   julianDayToHebrewConverter,
   islamic_to_jd,
   julianDayToIslamicConverter,
+  jd_to_julian,
+  julian_to_jd
 } from "../lib/calendarConverterLib";
-import {GregorianDate, LunarDate, HebrewDate, IslamicDate} from "./calendarClassesUtil";
+import {GregorianDate, LunarDate, HebrewDate, IslamicDate, JulianDate} from "./calendarClassesUtil";
 import { CALENDAR_TYPES } from "./constantsUtil";
 
 
@@ -16,15 +18,16 @@ export class ConverterUtil {
     this.gregorianDate = new GregorianDate();
     this.hebrewDate = new HebrewDate();
     this.islamicDate = new IslamicDate();
+    this.julianDate = new JulianDate();
   }
 
-  gregorianToJulianDay(inputDate) {
+  gregorianToJulianDay(gregorianDate) {
     let min = 0, hour = 0, sec = 0;
     
     let julianDay = gregorian_to_jd(
-      inputDate.year,
-      inputDate.monthIndex + 1,
-      inputDate.day
+      gregorianDate.year,
+      gregorianDate.monthIndex + 1,
+      gregorianDate.day
     ) + (Math.floor(sec + 60 * (min + 60 * hour) + 0.5) / 86400.0);
 
     return julianDay;
@@ -38,11 +41,11 @@ export class ConverterUtil {
     return this.gregorianDate;
   }
 
-  hebrewToJulianDay(inputDate) {    
+  hebrewToJulianDay(hebrewDate) {    
     let julianDay = hebrew_to_jd(
-      inputDate.year,
-      inputDate.monthIndex + 1,
-      inputDate.day
+      hebrewDate.year,
+      hebrewDate.monthIndex + 1,
+      hebrewDate.day
     );
 
     return julianDay;
@@ -53,11 +56,11 @@ export class ConverterUtil {
     return this.hebrewDate;
   }
 
-  islamicToJulianDay(inputDate) {
+  islamicToJulianDay(islamicDate) {
     let julianDay = islamic_to_jd(
-      inputDate.year,
-      inputDate.monthIndex + 1,
-      inputDate.day
+      islamicDate.year,
+      islamicDate.monthIndex + 1,
+      islamicDate.day
     );
 
     return julianDay;
@@ -105,6 +108,24 @@ export class ConverterUtil {
     let julianDay = this.gregorianToJulianDay(gregorianDate);
     return julianDay;
   }
+
+  julianDayToJulianDate(julianDay) {
+    let date = jd_to_julian(julianDay);
+    this.julianDate.year = date[0];
+    this.julianDate.monthIndex = date[1] - 1;
+    this.julianDate.day = date[2];
+    return this.julianDate;
+  }
+
+  julianDateToJulianDay(julianDate) {
+    let julianDay = julian_to_jd(
+      julianDate.year,
+      julianDate.monthIndex + 1,
+      julianDate.day
+    );
+
+    return julianDay;
+  }
 }
 
 
@@ -119,7 +140,9 @@ export function calendarConversionFromJulianDay(calendarType, julianDay) {
     case CALENDAR_TYPES.HEBREW:
       return converterUtil.julianDayToHebrew(julianDay);
     case CALENDAR_TYPES.ISLAMIC:
-      return converterUtil.julianDayToIslamic(julianDay)
+      return converterUtil.julianDayToIslamic(julianDay);
+    case CALENDAR_TYPES.JULIAN:
+      return converterUtil.julianDayToJulianDate(julianDay);
     default:
       return {};
   }
@@ -135,6 +158,8 @@ export function calendarConversionToJulianDay(calendarType, inputDate) {
       return converterUtil.hebrewToJulianDay(inputDate);
     case CALENDAR_TYPES.ISLAMIC:
       return converterUtil.islamicToJulianDay(inputDate);
+    case CALENDAR_TYPES.JULIAN:
+      return converterUtil.julianDateToJulianDay(inputDate);
     default:
       return {};
   }

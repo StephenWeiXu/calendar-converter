@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { Container, Row, Col, Card, Dropdown, DropdownButton, Button, ButtonGroup} from "react-bootstrap";
-import { CALENDAR_TYPES, GREGORIAN_CALENDAR_MONTHS} from "../utils/constantsUtil";
+import { Container, Row, Col, Card, Dropdown, ButtonGroup} from "react-bootstrap";
+import { CALENDAR_TYPES } from "../utils/constantsUtil";
 import SourceCalendar from "./SourceCalendar";
 import TargetCalendar from "./TargetCalendar";
 import {
@@ -14,7 +14,6 @@ import {
   calculateSourceCalendarDate,
   calculateTargetCalendarDate 
 } from "../reducers/calendarSlice";
-import { GregorianDate } from "../utils/calendarClassesUtil";
 import { ConverterUtil } from "../utils/converterUtil";
 
 
@@ -95,7 +94,7 @@ class CalendarCard extends Component {
    * @param {String} calendar 
    */
   getCalendarDisplayTitle(calendar) {
-    return `${calendar} Calendar`;
+    return `${calendar}`;
   }
 
   /**
@@ -104,7 +103,7 @@ class CalendarCard extends Component {
    * @param {Boolean} isSource 
    */
   renderCalendarTitleDropdown(currentCalendar, isSource) {
-    let visibileCount = 2;
+    let visibileCount = 3;
     let visibleCalendars = [];
     let hiddenCalendars = [];
 
