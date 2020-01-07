@@ -1,6 +1,6 @@
 export const CALENDAR_TYPES = {
   GREGORIAN: "Gregorian",
-  // LUNAR: "Lunar",
+  LUNAR: "Lunar",
   HEBREW: "Hebrew",
   ISLAMIC: "Islamic",
   JULIAN: "Julian",

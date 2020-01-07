@@ -67,8 +67,10 @@ export class ConverterUtil {
     julianDayToIslamicConverter(julianDay, this.islamicDate);
     return this.islamicDate;
   }
- 
-  gregorianToLunar(gregorianDate) {
+
+  julianDayToLunar(julianDay) {
+    let gregorianDate = this.julianDayToGregorian(julianDay);
+
     let lunarDate = new LunarDate();
     let solar = new Solar();
     let lunar = new Lunar();
@@ -85,7 +87,7 @@ export class ConverterUtil {
     return lunarDate;
   }
 
-  lunarToGregorian(lunarDate) {
+  lunarToJulianDay(lunarDate) {
     let gregorianDate = new GregorianDate();
     let solar = new Solar();
     let lunar = new Lunar();
@@ -99,7 +101,9 @@ export class ConverterUtil {
     gregorianDate.year = solar.solarYear;
     gregorianDate.monthIndex = solar.solarMonth - 1;
     gregorianDate.day = solar.solarDay;
-    return gregorianDate;
+
+    let julianDay = this.gregorianToJulianDay(gregorianDate);
+    return julianDay;
   }
 }
 
@@ -110,6 +114,8 @@ export function calendarConversionFromJulianDay(calendarType, julianDay) {
   switch(calendarType) {
     case CALENDAR_TYPES.GREGORIAN:
       return converterUtil.julianDayToGregorian(julianDay);
+    case CALENDAR_TYPES.LUNAR:
+      return converterUtil.julianDayToLunar(julianDay);    
     case CALENDAR_TYPES.HEBREW:
       return converterUtil.julianDayToHebrew(julianDay);
     case CALENDAR_TYPES.ISLAMIC:
@@ -123,6 +129,8 @@ export function calendarConversionToJulianDay(calendarType, inputDate) {
   switch(calendarType) {
     case CALENDAR_TYPES.GREGORIAN:
       return converterUtil.gregorianToJulianDay(inputDate);
+    case CALENDAR_TYPES.LUNAR:
+      return converterUtil.lunarToJulianDay(inputDate);
     case CALENDAR_TYPES.HEBREW:
       return converterUtil.hebrewToJulianDay(inputDate);
     case CALENDAR_TYPES.ISLAMIC:

@@ -193,7 +193,7 @@ function leap_julian(year) {
   return mod(year, 4) == ((year > 0) ? 0 : 3);
 }
 
-function julian_to_jd(year, month, day) {
+export function julian_to_jd(year, month, day) {
 
   /* Adjust negative common era years to the zero-based notation we use.  */
 
@@ -215,7 +215,7 @@ function julian_to_jd(year, month, day) {
 
 //  JD_TO_JULIAN  --  Calculate Julian calendar date from Julian day
 
-function jd_to_julian(td) {
+export function jd_to_julian(td) {
   var z, a, alpha, b, c, d, e, year, month, day;
 
   td += 0.5;
