@@ -3,7 +3,9 @@ import {
   LUNAR_CALENDAR_MONTHS,
   HEBREW_CALENDAR_MONTHS,
   ISLAMIC_CALENDAR_MONTHS,
-  JULIAN_CALENDAR_MONTHS
+  JULIAN_CALENDAR_MONTHS,
+  PERSIAN_CALENDAR_MONTHS,
+  INDIANCIVIL_CALENDAR_MONTHS
 } from "./constantsUtil";
 
 export class BaseDate {
@@ -49,5 +51,19 @@ export class JulianDate extends BaseDate {
   constructor() {
     super();
     this.monthList = JULIAN_CALENDAR_MONTHS;
+  }
+}
+
+export class PersianDate extends BaseDate {
+  constructor() {
+    super();
+    this.monthList = PERSIAN_CALENDAR_MONTHS;
+  }
+}
+
+export class IndianCivilDate extends BaseDate {
+  constructor() {
+    super();
+    this.monthList = INDIANCIVIL_CALENDAR_MONTHS;
   }
 }

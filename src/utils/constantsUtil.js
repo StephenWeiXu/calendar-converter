@@ -5,7 +5,7 @@ export const CALENDAR_TYPES = {
   ISLAMIC: "Islamic",
   JULIAN: "Julian",
   PERSIAN: "Persian",
-  MAYAN: "Mayan",
+  // MAYAN: "Mayan",
   INDIANCIVIL: "Indian Civil",
   FRENCHREPUBLICAN: "French Republican",
   UNIX: "Unix"
@@ -66,3 +66,33 @@ export const ISLAMIC_CALENDAR_MONTHS = [
 ];
 
 export const JULIAN_CALENDAR_MONTHS = GREGORIAN_CALENDAR_MONTHS;
+
+export const PERSIAN_CALENDAR_MONTHS = [
+  "Farvardin",
+  "Ordibehesht",
+  "Khordad",
+  "Tir",
+  "Mordad",
+  "Shahrivar",
+  "Mehr",
+  "Aban",
+  "Azar",
+  "Dey",
+  "Bahman",
+  "Esfand",
+];
+
+export const INDIANCIVIL_CALENDAR_MONTHS = [
+  "Caitra",
+  "Vaisakha",
+  "Jyaistha",
+  "Asadha",
+  "Sravana",
+  "Bhadra",
+  "Asvina",
+  "Kartika",
+  "Agrahayana",
+  "Pausa",
+  "Magha",
+  "Phalguna",
+];

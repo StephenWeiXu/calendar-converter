@@ -509,7 +509,7 @@ export function islamic_to_jd(year, month, day) {
 
 //  JD_TO_ISLAMIC  --  Calculate Islamic date from Julian day
 
-function jd_to_islamic(jd) {
+export function jd_to_islamic(jd) {
   var year, month, day;
 
   jd = Math.floor(jd) + 0.5;
@@ -657,7 +657,7 @@ function leap_persian(year) {
 
 //  PERSIAN_TO_JD  --  Determine Julian day from Persian date
 
-function persian_to_jd(year, month, day) {
+export function persian_to_jd(year, month, day) {
   var epbase, epyear;
 
   epbase = year - ((year >= 0) ? 474 : 473);
@@ -676,7 +676,7 @@ function persian_to_jd(year, month, day) {
 
 //  JD_TO_PERSIAN  --  Calculate Persian date from Julian day
 
-function jd_to_persian(jd) {
+export function jd_to_persian(jd) {
   var year, month, day, depoch, cycle, cyear, ycycle,
     aux1, aux2, yday;
 
@@ -773,7 +773,7 @@ var INDIAN_CIVIL_WEEKDAYS = new Array(
   "ravivara", "somavara", "mangalavara", "budhavara",
   "brahaspativara", "sukravara", "sanivara");
 
-function indian_civil_to_jd(year, month, day) {
+export function indian_civil_to_jd(year, month, day) {
   var Caitra, gyear, leap, start, jd, m;
 
   gyear = year + 78;
@@ -800,8 +800,8 @@ function indian_civil_to_jd(year, month, day) {
 
 //  JD_TO_INDIAN_CIVIL  --  Calculate Indian Civil date from Julian day
 
-function jd_to_indian_civil(jd) {
-  var Caitra, Saka, greg, greg0, leap, start, year, yday, mday;
+export function jd_to_indian_civil(jd) {
+  var Caitra, Saka, greg, greg0, leap, start, year, yday, month, mday, day;
 
   Saka = 79 - 1;                    // Offset in years from Saka era to Gregorian epoch
   start = 80;                       // Day offset between Saka and Gregorian
