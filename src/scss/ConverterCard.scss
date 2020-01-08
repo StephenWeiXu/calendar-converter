@@ -44,7 +44,7 @@
     }
 
     .converter-header__dropdown-button {
-      color: #000;
+      color: black;
       background-color: inherit;
       border: none;
     }
@@ -55,12 +55,23 @@
     text-align: center;
 
     .converter-body__source {
-      border-right: 1px solid lightgrey;
       padding: 2rem;
     }
 
     .converter-body__target {
       padding: 2rem;
+    }
+
+    .converter-body__vertical-separator {
+      border-left: 1px solid lightgrey;
+      width: 1px;
+      margin: auto;
+      height: 100%;
+    }
+
+    .converter-body__calendar {
+      width: fit-content;
+      margin: auto;
     }
   }
 }

@@ -183,16 +183,17 @@ class CalendarCard extends Component {
           </Row>
         </Card.Header>
         <Card.Body>
-            <Container>
-              <Row>
-                <Col className="converter-body__source" lg={6}>
-                  {this.props.reverseSourceTargetCalendarFlag ? <TargetCalendar /> : <SourceCalendar />}
-                </Col>
-                <Col className="converter-body__target" lg={6}>
-                  {this.props.reverseSourceTargetCalendarFlag ? <SourceCalendar /> : <TargetCalendar />}
-                </Col>
-              </Row>
-            </Container>
+            <Row>
+              <Col className="converter-body__source" lg={5}>
+                {this.props.reverseSourceTargetCalendarFlag ? <TargetCalendar /> : <SourceCalendar />}
+              </Col>
+              <Col lg={2}>
+                <div className="converter-body__vertical-separator"></div>
+              </Col>
+              <Col className="converter-body__target" lg={5}>
+                {this.props.reverseSourceTargetCalendarFlag ? <SourceCalendar /> : <TargetCalendar />}
+              </Col>
+            </Row>
         </Card.Body>
       </Card>
 		);

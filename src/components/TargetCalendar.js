@@ -78,31 +78,31 @@ class TargetCalendar extends Component {
 
   render() {
     return (
-      <>
-      <ul className="list-group list-group-horizontal calendar-group">
-        <li className="list-group-item">
-          <input
-            type="text"
-            name="sourceYear"
-            placeholder="yyyy"
-            value={this.getDisplayTargetYear()}
-            onChange={(e) => this.onDateChange(e, DATE_TYPES.YEAR)}
-          />
-        </li>
-        <li className="list-group-item">
-          { this.getMonthList() }
-        </li>
-        <li className="list-group-item">
-          <input
-            type="text"
-            name="sourceDay"
-            placeholder="dd"
-            value={this.getDisplayTargetDay()}
-            onChange={(e) => this.onDateChange(e, DATE_TYPES.DAY)} 
-          />
-        </li>
-      </ul>
-      </>
+      <div className="converter-body__calendar">
+        <ul className="list-group list-group-horizontal calendar-group">
+          <li className="list-group-item">
+            <input
+              type="text"
+              name="sourceYear"
+              placeholder="yyyy"
+              value={this.getDisplayTargetYear()}
+              onChange={(e) => this.onDateChange(e, DATE_TYPES.YEAR)}
+            />
+          </li>
+          <li className="list-group-item">
+            { this.getMonthList() }
+          </li>
+          <li className="list-group-item">
+            <input
+              type="text"
+              name="sourceDay"
+              placeholder="dd"
+              value={this.getDisplayTargetDay()}
+              onChange={(e) => this.onDateChange(e, DATE_TYPES.DAY)} 
+            />
+          </li>
+        </ul>
+      </div>
     )
   }
 }
