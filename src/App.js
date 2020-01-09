@@ -14,7 +14,7 @@ class App extends Component {
       <HashRouter>
         <div>
           <Navbar bg="dark" variant="dark" className="nav-section">
-            <Navbar.Brand href="/">Calendar Converter</Navbar.Brand>
+            <Navbar.Brand href="/">Calendar Date Converter</Navbar.Brand>
           </Navbar>
 
           <div className="content">
