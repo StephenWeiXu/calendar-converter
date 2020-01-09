@@ -7,8 +7,8 @@ export const CALENDAR_TYPES = {
   PERSIAN: "Persian",
   // MAYAN: "Mayan",
   INDIANCIVIL: "Indian Civil",
-  FRENCHREPUBLICAN: "French Republican",
-  UNIX: "Unix"
+  // FRENCHREPUBLICAN: "French Republican",
+  // UNIX: "Unix"
 }
 
 export const DATE_TYPES = {

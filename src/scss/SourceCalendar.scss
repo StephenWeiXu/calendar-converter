@@ -1,8 +1,19 @@
-.list-group-item {
-  border: none;
+.converter-body__calendar {
+  width: fit-content;
+  margin: auto;
 
-  input {
-    width: 50%;
-    text-align: center;
+  .list-group-item {
+    padding: 0;
+    border: none;
+
+    input {
+      width: 50%;
+      height: 30px;
+      text-align: center;
+    }
+
+    select {
+      height: 30px;
+    }
   }
 }

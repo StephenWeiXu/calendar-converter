@@ -15,10 +15,9 @@
     text-align: center;
 
     .calendar-item {
-      padding: 1rem 0.6rem;
+      padding: 0.8rem 0.8rem;
 
       &.selected {
-        padding: 1rem 0.6rem;
         color: #4284f3;
         border-bottom: solid 3px #4284f3;
       }
@@ -47,6 +46,21 @@
       color: black;
       background-color: inherit;
       border: none;
+      border-radius: 0;
+              
+      &:focus {
+        outline: none;
+      }
+
+      &::after {
+        font-size: 15px;
+      }
+    }
+
+    .converter-header__dropdown-item {
+      &:hover {
+        background: #f5f5f5;
+      }
     }
   }
 
@@ -55,11 +69,11 @@
     text-align: center;
 
     .converter-body__source {
-      padding: 2rem;
+      padding: 3rem;
     }
 
     .converter-body__target {
-      padding: 2rem;
+      padding: 3rem;
     }
 
     .converter-body__vertical-separator {
@@ -67,11 +81,6 @@
       width: 1px;
       margin: auto;
       height: 100%;
-    }
-
-    .converter-body__calendar {
-      width: fit-content;
-      margin: auto;
     }
   }
 }

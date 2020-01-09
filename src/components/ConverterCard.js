@@ -154,7 +154,7 @@ class CalendarCard extends Component {
               let calendarName = CALENDAR_TYPES[calendarKey];
               if (calendarName !== currentCalendar) {
                 return (
-                  <Dropdown.Item href="#" key={index} data-calendar-name={calendarName} onClick={(e) => this.changeCalendar(e, isSource)}>
+                  <Dropdown.Item href="#" className="converter-header__dropdown-item" key={index} data-calendar-name={calendarName} onClick={(e) => this.changeCalendar(e, isSource)}>
                     {this.getCalendarDisplayTitle(calendarName)}
                   </Dropdown.Item>
                 )
@@ -184,13 +184,13 @@ class CalendarCard extends Component {
         </Card.Header>
         <Card.Body>
             <Row>
-              <Col className="converter-body__source" lg={5}>
+              <Col className="converter-body__source" md={5}>
                 {this.props.reverseSourceTargetCalendarFlag ? <TargetCalendar /> : <SourceCalendar />}
               </Col>
-              <Col lg={2}>
+              <Col md={2}>
                 <div className="converter-body__vertical-separator"></div>
               </Col>
-              <Col className="converter-body__target" lg={5}>
+              <Col className="converter-body__target" md={5}>
                 {this.props.reverseSourceTargetCalendarFlag ? <SourceCalendar /> : <TargetCalendar />}
               </Col>
             </Row>
