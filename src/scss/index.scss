@@ -10,7 +10,14 @@ body {
 
 .nav-section {
   padding-left: 2rem;
+  padding-right: 2rem;
   background-color: cadetblue !important;
+
+  .nav-right {
+    &:hover {
+      text-decoration: none;
+    }
+  }
 }
 
 .content {
