@@ -15,10 +15,14 @@ import {
   calculateTargetCalendarDate 
 } from "../reducers/calendarSlice";
 import { ConverterUtil } from "../utils/converterUtil";
+import { MediaQueryUtil } from "../utils/displayUtil";
 
+
+const mediaQueryUtil = new MediaQueryUtil();
 
 const mapStateToProps = (state) => {
   return {
+    screenSize: state.calendar.screenSize,
     sourceCalendar: state.calendar.sourceCalendar,
     targetCalendar: state.calendar.targetCalendar,
     reverseSourceTargetCalendarFlag: state.calendar.reverseSourceTargetCalendarFlag
@@ -88,6 +92,7 @@ class CalendarCard extends Component {
       this.props.calculateTargetCalendarDate();
     }
   }
+  
 
   /**
    * Get the display title of the calendar
@@ -97,13 +102,24 @@ class CalendarCard extends Component {
     return `${calendar}`;
   }
 
+  getResponsiveVisibileCount() {
+    if (mediaQueryUtil.isSmallScreen(window.innerWidth)) {
+      return 0;
+    } else if (mediaQueryUtil.isMediumScreen(window.innerWidth)) {
+      return 1;
+    } else if (mediaQueryUtil.isLargeScreen(window.innerWidth)) {
+      return 2;
+    }
+    return 3;
+  }
+
   /**
    * Render the calendar title dropdown button
    * @param {String} currentCalendar
    * @param {Boolean} isSource 
    */
   renderCalendarTitleDropdown(currentCalendar, isSource) {
-    let visibileCount = 3;
+    let visibileCount = this.getResponsiveVisibileCount();
     let visibleCalendars = [];
     let hiddenCalendars = [];
 
@@ -170,19 +186,22 @@ class CalendarCard extends Component {
 		return (
       <Card className="converter-card">
         <Card.Header className="converter-header">
+        <Container>
           <Row>
-            <Col lg={5}>
+            <Col xs={5}>
               {this.renderCalendarTitleDropdown(this.props.sourceCalendar, true)}
             </Col>
-            <Col lg={2}>
+            <Col xs={2}>
               <img src="images/switch.png" className="converter-header__switch-icon" onClick={this.props.switchSourceAndTargetCalendar} />
             </Col>
-            <Col lg={5}>
+            <Col xs={5}>
               {this.renderCalendarTitleDropdown(this.props.targetCalendar, false)}
             </Col>
           </Row>
+          </Container>
         </Card.Header>
         <Card.Body>
+          <Container>
             <Row>
               <Col className="converter-body__source" md={5}>
                 {this.props.reverseSourceTargetCalendarFlag ? <TargetCalendar /> : <SourceCalendar />}
@@ -194,6 +213,7 @@ class CalendarCard extends Component {
                 {this.props.reverseSourceTargetCalendarFlag ? <SourceCalendar /> : <TargetCalendar />}
               </Col>
             </Row>
+            </Container>
         </Card.Body>
       </Card>
 		);

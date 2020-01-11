@@ -1,13 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { CALENDAR_TYPES } from "../utils/constantsUtil";
-import { ConverterUtil, calendarConversionFromJulianDay } from "../utils/converterUtil";
+import { calendarConversionFromJulianDay } from "../utils/converterUtil";
 
-
-const converterUtil = new ConverterUtil();
 
 const calendarSlice = createSlice({
   name: "sourceCalendar",
   initialState: {
+    screenSize: null,
     sourceCalendar: CALENDAR_TYPES.GREGORIAN,
     targetCalendar: CALENDAR_TYPES.LUNAR,
     reverseSourceTargetCalendarFlag: false,
@@ -26,6 +25,9 @@ const calendarSlice = createSlice({
     }
   },
   reducers: {
+    setScreenSize(state, action) {
+      state.screenSize = action.payload.screenSize;
+    },
     setSourceCalendar(state, action) {
       state.sourceCalendar = action.payload.sourceCalendar;
     },
@@ -76,6 +78,7 @@ const calendarSlice = createSlice({
 });
 
 export const {
+  setScreenSize,
   setJulianDay,
   setSourceDate,
   setTargetDate,

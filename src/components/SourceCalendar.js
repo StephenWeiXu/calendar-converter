@@ -1,11 +1,9 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { setJulianDay, setSourceDate, calculateTargetCalendarDate } from "../reducers/calendarSlice";
-import { ConverterUtil, calendarConversionToJulianDay } from "../utils/converterUtil";
+import { calendarConversionToJulianDay } from "../utils/converterUtil";
 import { DATE_TYPES } from "../utils/constantsUtil";
 
-
-const converterUtil = new ConverterUtil();
 
 const mapStateToProps = (state) => {
   return {
