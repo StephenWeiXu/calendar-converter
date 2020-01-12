@@ -23,3 +23,10 @@ body {
 .content {
   padding: 2rem;
 }
+
+@media (min-width: 1280px) {
+  .content {
+    max-width: 1280px;
+    margin: auto;
+  }
+}
