@@ -103,7 +103,7 @@ class CalendarCard extends Component {
   }
 
   getResponsiveVisibileCount() {
-    if (mediaQueryUtil.isSmallScreen(window.innerWidth)) {
+    if (mediaQueryUtil.isSmallScreen(window.innerWidth) || mediaQueryUtil.isXSmallScreen(window.innerWidth)) {
       return 0;
     } else if (mediaQueryUtil.isMediumScreen(window.innerWidth)) {
       return 1;
@@ -188,13 +188,13 @@ class CalendarCard extends Component {
         <Card.Header className="converter-header">
         <Container>
           <Row>
-            <Col xs={5}>
+            <Col sm={5}>
               {this.renderCalendarTitleDropdown(this.props.sourceCalendar, true)}
             </Col>
-            <Col xs={2}>
+            <Col sm={2}>
               <img src="images/switch.png" className="converter-header__switch-icon" onClick={this.props.switchSourceAndTargetCalendar} />
             </Col>
-            <Col xs={5}>
+            <Col sm={5}>
               {this.renderCalendarTitleDropdown(this.props.targetCalendar, false)}
             </Col>
           </Row>
