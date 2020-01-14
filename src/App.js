@@ -14,7 +14,7 @@ class App extends Component {
       <HashRouter>
         <div>
           <Navbar variant="dark">
-            <Navbar.Brand href="/">Calendar Converter</Navbar.Brand>
+            <Navbar.Brand href="/"><h1>Calendar Converter</h1></Navbar.Brand>
             <Navbar.Collapse className="justify-content-end">
               <Navbar.Text>
                 <Link to="/feedback" className="nav-right">Feedback</Link>
