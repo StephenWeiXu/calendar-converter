@@ -8,14 +8,15 @@ body {
   font-family: sans-serif;
 }
 
-h1 {
-  font-size: 1.5rem;
-}
-
 .navbar {
   padding-left: 2rem !important;
   padding-right: 2rem !important;
   background-color: cadetblue;
+
+  .navbar-brand h1 {
+    font-size: 1.5rem;
+    margin-bottom: 0;
+  }
 
   .nav-right {
     &:hover {
