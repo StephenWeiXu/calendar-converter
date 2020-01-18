@@ -1,110 +1,52 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { setJulianDay, setTargetDate, calculateSourceCalendarDate} from "../reducers/calendarSlice";
-import { ConverterUtil, calendarConversionToJulianDay } from "../utils/converterUtil";
-import { DATE_TYPES } from "../utils/constantsUtil";
+import { setJulianDay, setTargetDate, calculateSourceCalendarDate, setTargetErrorMessage} from "../reducers/calendarSlice";
+import { CalendarWrapperHOC } from "./CalendarWrapper";
 
-
-const converterUtil = new ConverterUtil();
 
 const mapStateToProps = (state) => {
+  let year, monthIndex, day;
+  const sourceErrorMessage = state.calendar.sourceErrorMessage;
+  year = sourceErrorMessage ? "" : state.calendar.targetDate.year;
+  monthIndex = sourceErrorMessage ? "-1" : state.calendar.targetDate.monthIndex;
+  day = sourceErrorMessage ? "" : state.calendar.targetDate.day;
+
   return {
     calendar: state.calendar.targetCalendar,
     date: state.calendar.targetDate,
-    year: state.calendar.targetDate.year,
+    year: year,
     monthList: state.calendar.targetDate.monthList,
-    monthIndex: state.calendar.targetDate.monthIndex,
-    day: state.calendar.targetDate.day
+    monthIndex: monthIndex,
+    day: day,
+    ownErrorMessage: state.calendar.targetErrorMessage,
+    theOtherErrorMessage: state.calendar.sourceErrorMessage
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    setTargetDate: (payload) => {
+    setDate: (payload) => {
       dispatch(setTargetDate({targetDate: payload}));
     },
     setJulianDay: (julianDayNumber) => {
       dispatch(setJulianDay({julianDay: julianDayNumber}));
     },
-    calculateSourceCalendarDate: () => {
+    calculateTheOtherCalendarDate: () => {
       dispatch(calculateSourceCalendarDate());
+    },
+    setOwnErrorMessage: (message) => {
+      dispatch(setTargetErrorMessage({errorMessage: message}));
     }
   };
 };
 
 class TargetCalendar extends Component {
-  constructor(props) {
-    super(props);
-  }
-
-  onDateChange(event, type) {
-    let julianDay, modifiedDate;
-    switch(type) {
-      case DATE_TYPES.YEAR:
-        modifiedDate = {year: Number(event.target.value), monthIndex: this.props.monthIndex, day: this.props.day};
-        break;
-      case DATE_TYPES.MONTH_INDEX:
-        modifiedDate = {year: this.props.year, monthIndex: Number(event.target.value), day: this.props.day};
-        break;
-      case DATE_TYPES.DAY:
-        modifiedDate = {year: this.props.year, monthIndex: this.props.monthIndex, day: Number(event.target.value)};
-        break;
-    }
-
-    this.props.setTargetDate(modifiedDate);
-    julianDay = calendarConversionToJulianDay(this.props.calendar, modifiedDate);
-    this.props.setJulianDay(julianDay);
-    this.props.calculateSourceCalendarDate();
-  }
-
-  getDisplayTargetYear() {
-    return this.props.year === 0 ? "" : this.props.year;
-  }
-
-  getMonthList() {
-    const monthList = this.props.monthList;
-    return (
-      <select onChange={(e) => this.onDateChange(e, DATE_TYPES.MONTH_INDEX)} value={this.props.monthIndex}>
-        {monthList.map((month, index) => {
-          return <option key={index} value={index}>{month}</option>;
-        })}
-      </select>
-    )
-  }
-
-  getDisplayTargetDay() {
-    return this.props.day === 0 ? "" : this.props.day;
-  }
-
   render() {
     return (
-      <div className="converter-body__calendar">
-        <ul className="list-group list-group-horizontal calendar-group">
-          <li className="list-group-item">
-            <input
-              type="text"
-              name="sourceYear"
-              placeholder="yyyy"
-              value={this.getDisplayTargetYear()}
-              onChange={(e) => this.onDateChange(e, DATE_TYPES.YEAR)}
-            />
-          </li>
-          <li className="list-group-item">
-            { this.getMonthList() }
-          </li>
-          <li className="list-group-item">
-            <input
-              type="text"
-              name="sourceDay"
-              placeholder="dd"
-              value={this.getDisplayTargetDay()}
-              onChange={(e) => this.onDateChange(e, DATE_TYPES.DAY)} 
-            />
-          </li>
-        </ul>
-      </div>
+      <>
+      </>
     )
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(TargetCalendar);
+export default connect(mapStateToProps, mapDispatchToProps)(CalendarWrapperHOC(TargetCalendar));

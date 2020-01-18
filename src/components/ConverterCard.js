@@ -22,7 +22,7 @@ const mediaQueryUtil = new MediaQueryUtil();
 
 const mapStateToProps = (state) => {
   return {
-    screenSize: state.calendar.screenSize,
+    screenSize: state.utils.screenSize,
     sourceCalendar: state.calendar.sourceCalendar,
     targetCalendar: state.calendar.targetCalendar,
     reverseSourceTargetCalendarFlag: state.calendar.reverseSourceTargetCalendarFlag
@@ -188,13 +188,13 @@ class CalendarCard extends Component {
         <Card.Header className="converter-header">
         <Container>
           <Row>
-            <Col sm={5}>
+            <Col xs={5}>
               {this.renderCalendarTitleDropdown(this.props.sourceCalendar, true)}
             </Col>
-            <Col sm={2}>
+            <Col isXSmallScreen={2}>
               <img src="images/switch.png" className="converter-header__switch-icon" onClick={this.props.switchSourceAndTargetCalendar} />
             </Col>
-            <Col sm={5}>
+            <Col xs={5}>
               {this.renderCalendarTitleDropdown(this.props.targetCalendar, false)}
             </Col>
           </Row>
@@ -203,13 +203,10 @@ class CalendarCard extends Component {
         <Card.Body>
           <Container>
             <Row>
-              <Col className="converter-body__source" md={5}>
+              <Col className="converter-body__source" md={6}>
                 {this.props.reverseSourceTargetCalendarFlag ? <TargetCalendar /> : <SourceCalendar />}
               </Col>
-              <Col md={2}>
-                <div className="converter-body__vertical-separator"></div>
-              </Col>
-              <Col className="converter-body__target" md={5}>
+              <Col className="converter-body__target" md={6}>
                 {this.props.reverseSourceTargetCalendarFlag ? <SourceCalendar /> : <TargetCalendar />}
               </Col>
             </Row>

@@ -2,12 +2,12 @@ import React, { Component } from "react";
 import { Container, Row, Col, Card} from "react-bootstrap";
 import ConverterCard from "./ConverterCard";
 import { connect } from "react-redux";
-import { setScreenSize } from "../reducers/calendarSlice";
+import { setScreenSize } from "../reducers/utilsSlice";
 
 
 const mapStateToProps = (state) => {
   return {
-    screenSize: state.calendar.screenSize
+    screenSize: state.utils.screenSize
   };
 }
 

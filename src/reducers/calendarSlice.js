@@ -6,7 +6,8 @@ import { calendarConversionFromJulianDay } from "../utils/converterUtil";
 const calendarSlice = createSlice({
   name: "sourceCalendar",
   initialState: {
-    screenSize: null,
+    sourceErrorMessage: "",
+    targetErrorMessage: "",
     sourceCalendar: CALENDAR_TYPES.GREGORIAN,
     targetCalendar: CALENDAR_TYPES.LUNAR,
     reverseSourceTargetCalendarFlag: false,
@@ -25,8 +26,11 @@ const calendarSlice = createSlice({
     }
   },
   reducers: {
-    setScreenSize(state, action) {
-      state.screenSize = action.payload.screenSize;
+    setSourceErrorMessage(state, action) {
+      state.sourceErrorMessage = action.payload.errorMessage;
+    },
+    setTargetErrorMessage(state, action) {
+      state.targetErrorMessage = action.payload.errorMessage;
     },
     setSourceCalendar(state, action) {
       state.sourceCalendar = action.payload.sourceCalendar;
@@ -78,7 +82,8 @@ const calendarSlice = createSlice({
 });
 
 export const {
-  setScreenSize,
+  setSourceErrorMessage,
+  setTargetErrorMessage,
   setJulianDay,
   setSourceDate,
   setTargetDate,

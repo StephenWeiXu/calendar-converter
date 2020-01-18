@@ -10,7 +10,6 @@
 }
 
 .converter-card {
-
   .converter-header {
     text-align: center;
     padding: 0;
@@ -75,21 +74,17 @@
     }
 
     .converter-body__target {
+      border-left: 1px solid lightgrey;
       padding: 3rem 0;
     }
 
-    .converter-body__vertical-separator {
-      border-left: 1px solid lightgrey;
-      width: 1px;
-      margin: auto;
-      height: 100%;
+    @media (max-width: 768px) {
+      .converter-body__target {
+        border-top: 1px cadetblue solid;
+        border-left: none;
+      }
     }
   }
 }
 
 
-@media (max-width: 768px) {
-  .converter-body__source {
-    border-bottom: 1px cadetblue solid;
-  }
-}
