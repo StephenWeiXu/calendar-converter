@@ -16,7 +16,7 @@ import {
 } from "../reducers/calendarSlice";
 import { ConverterUtil } from "../utils/converterUtil";
 import { MediaQueryUtil } from "../utils/displayUtil";
-import { getWikiAbstract } from "../api/dbpedia";
+import { getWikiTermDetails } from "../api/dbpedia";
 
 const mediaQueryUtil = new MediaQueryUtil();
 
@@ -76,7 +76,7 @@ class CalendarCard extends Component {
     this.props.calculateSourceCalendarDate();
     this.props.calculateTargetCalendarDate();
 
-    getWikiAbstract();
+    // getWikiTermDetails();
   }
 
   /**
@@ -193,7 +193,7 @@ class CalendarCard extends Component {
             <Col xs={5}>
               {this.renderCalendarTitleDropdown(this.props.sourceCalendar, true)}
             </Col>
-            <Col isXSmallScreen={2}>
+            <Col xs={2}>
               <img src="images/switch.png" className="converter-header__switch-icon" onClick={this.props.switchSourceAndTargetCalendar} />
             </Col>
             <Col xs={5}>
