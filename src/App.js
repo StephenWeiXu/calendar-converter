@@ -12,6 +12,11 @@ class App extends Component {
     super(props);
   }
 
+  getCurrentYear() {
+    const today = new Date();
+    return today.getFullYear();
+  }
+
   render() {
     return (
       <HashRouter>
@@ -29,6 +34,10 @@ class App extends Component {
                   component={() => <CalendarInfo calendarName={calendarName} />} />;
               })
             }
+          </div>
+
+          <div className="footer txtc">
+            Calendar Converter © {this.getCurrentYear()}. All Rights Reserved.
           </div>
         </div>
       </HashRouter>
