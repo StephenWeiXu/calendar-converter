@@ -20,7 +20,7 @@ class NavBar extends Component {
         </Navbar.Brand>
         <Navbar.Collapse className="justify-content-end">
           <Nav>
-            <NavDropdown className="navbar-dropdown" title="Calendars">
+            <NavDropdown className="navbar-dropdown mrs" title="Calendars">
             {
               Object.keys(CALENDAR_NAME_WITH_WIKI_TERM).map((calendarName, index) => {
                 return (

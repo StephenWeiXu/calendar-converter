@@ -70,7 +70,7 @@ class CalendarInfo extends Component {
       <div>
         <Container>
           <Row>
-            <Col sm={{ span: 8, offset: 2 }}>
+            <Col md={{ span: 8, offset: 2 }}>
               <h1>{this.props.calendarName}</h1>
               <p><Link to="/">Try the calendar converter</Link></p>
               {
