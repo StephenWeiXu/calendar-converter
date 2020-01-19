@@ -1,0 +1,29 @@
+
+.navbar {
+  padding-left: 2rem !important;
+  padding-right: 2rem !important;
+  background-color: cadetblue;
+
+  .navbar-brand {
+    .navbar-title {
+      color: #fff;
+
+      &:hover {
+        text-decoration: none;
+      }
+    }
+  }
+
+  .nav-link {
+    color: #fff !important;
+    &:hover {
+      opacity: 0.8;
+    }
+  }
+
+  .dropdown-item {
+    &.active {
+      background-color: cadetblue;
+    }
+  }
+}

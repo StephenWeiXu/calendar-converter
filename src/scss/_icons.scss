@@ -1,0 +1,23 @@
+@import "settings";
+
+@mixin icons() {
+  .icon-small {
+    font-size: $base-spacing-small;
+  }
+
+  .icon-medium {
+    font-size: $base-spacing-medium;
+  }
+
+  .icon-large {
+    font-size: $base-spacing-large;
+  }
+
+  .icon-xlarge {
+    font-size: $base-spacing-extra-large;
+  }
+
+  .icon-thumbnail {
+    font-size: 60px;
+  }
+}

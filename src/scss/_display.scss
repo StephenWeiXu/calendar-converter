@@ -1,0 +1,82 @@
+@import "settings";
+
+@mixin text-align($direction: left) {
+  text-align: $direction !important;
+}
+
+@mixin vertical-align($direction: top) {
+  vertical-align: $direction !important;
+}
+
+@mixin text-alignment-classes {
+  .txtr {
+    @include text-align(right);
+  }
+
+  .txtc {
+    @include text-align(center);
+  }
+
+  .txtl {
+    @include text-align(left);
+  }
+
+  .txtt {
+    @include vertical-align(top);
+  }
+
+  .txtm {
+    @include vertical-align(middle);
+  }
+
+  .txtb {
+    @include vertical-align(bottom);
+  }
+
+  .txttt {
+    @include vertical-align(text-top);
+  }
+
+  .txttb {
+    @include vertical-align(text-bottom);
+  }
+}
+
+@mixin display-classes {
+  .hide {
+    display: none;
+  }
+
+  .block {
+    display: block !important;
+  }
+
+  .inline-block {
+    display: inline-block !important;
+  }
+
+  .inline {
+    display: inline !important;
+  }
+
+  @media print, screen and (min-width: 85em) {
+    .xlarge-up-3 > .cell {
+      width: 33.33333%;
+    }
+  }
+}
+
+@mixin lists-classes {
+  .inline-list {
+    li {
+      display: inline;
+      margin: 10px;
+    }
+  }
+}
+
+@mixin display-utils {
+  @include text-alignment-classes;
+  @include display-classes;
+  @include lists-classes;
+}

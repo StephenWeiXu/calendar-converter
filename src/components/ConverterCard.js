@@ -16,7 +16,7 @@ import {
 } from "../reducers/calendarSlice";
 import { ConverterUtil } from "../utils/converterUtil";
 import { MediaQueryUtil } from "../utils/displayUtil";
-import { getWikiTermDetails } from "../api/dbpedia";
+
 
 const mediaQueryUtil = new MediaQueryUtil();
 
@@ -75,8 +75,6 @@ class CalendarCard extends Component {
     this.props.setJulianDay(julianDay);
     this.props.calculateSourceCalendarDate();
     this.props.calculateTargetCalendarDate();
-
-    // getWikiTermDetails();
   }
 
   /**

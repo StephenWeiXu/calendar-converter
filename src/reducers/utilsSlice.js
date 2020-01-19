@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 
 const utilsSlice = createSlice({
-  name: "sourceCalendar",
+  name: "utils",
   initialState: {
     screenSize: null,
   },

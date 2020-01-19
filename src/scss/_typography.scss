@@ -1,0 +1,15 @@
+@import "settings";
+
+@mixin typography {
+  .bold {
+    font-weight: bold !important;
+  }
+
+  .italic {
+    font-style: italic !important;
+  }
+
+  .no-underline {
+    text-decoration: none !important;
+  }
+}

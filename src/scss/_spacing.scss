@@ -1,0 +1,43 @@
+@import "settings";
+
+$spacing-style: (padding, margin);
+$spacing-side: (all, top, right, bottom, left, horizontal, vertical);
+
+$spacing-maps: (
+  n: 0 !important,
+  xs: $base-spacing-extra-small !important,
+  s: $base-spacing-small !important,
+  m: $base-spacing-medium !important,
+  l: $base-spacing-large !important,
+  xl: $base-spacing-extra-large !important
+) !default;
+
+@mixin spacing {
+  @each $style in $spacing-style {
+    @each $side in $spacing-side {
+      @each $size, $value in $spacing-maps {
+        $spacing-class: str-slice($style, 1, 1) + str-slice($side, 1, 1) + $size;
+
+        .#{$spacing-class} {
+          @if $side == vertical {
+            #{$style}-top: $value;
+            #{$style}-bottom: $value;
+          }
+
+          @else if $side == horizontal {
+            #{$style}-left: $value;
+            #{$style}-right: $value;
+          }
+
+          @else if $side == all {
+            #{$style}: $value;
+          }
+
+          @else {
+            #{$style}-#{$side}: $value;
+          }
+        }
+      }
+    }
+  }
+}

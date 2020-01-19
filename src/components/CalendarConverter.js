@@ -37,6 +37,7 @@ class CalendarConverter extends Component {
 	render() {
 		return (
 			<div>
+        <h1 className="hide">Calendar Converter</h1>
         <Row>
           <Col>
             <ConverterCard />

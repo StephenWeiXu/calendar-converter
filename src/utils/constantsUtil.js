@@ -1,3 +1,13 @@
+export const CALENDAR_NAME_WITH_WIKI_TERM = {
+  "Gregorian Calendar": "Gregorian_calendar",
+  "Lunar Calendar": "Lunar_calendar",
+  "Hebrew Calendar": "Hebrew_calendar",
+  "Islamic Calendar": "Islamic_calendar",
+  "Julian Calendar": "Julian_calendar",
+  "Persian Calendar": "Persian_calendar",
+  "Indian National Calendar": "Indian_national_calendar",
+};
+
 export const CALENDAR_TYPES = {
   GREGORIAN: "Gregorian",
   LUNAR: "Lunar",
@@ -6,7 +16,7 @@ export const CALENDAR_TYPES = {
   JULIAN: "Julian",
   PERSIAN: "Persian",
   // MAYAN: "Mayan",
-  INDIANCIVIL: "Indian Civil",
+  INDIANCIVIL: "Indian National",
   // FRENCHREPUBLICAN: "French Republican",
   // UNIX: "Unix"
 }

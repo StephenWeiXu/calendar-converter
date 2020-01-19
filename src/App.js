@@ -1,8 +1,11 @@
 import React, { Component } from "react";
-import { Route, NavLink, HashRouter, Link } from "react-router-dom";
+import { Route, HashRouter } from "react-router-dom";
 import CalendarConverter from "./components/CalendarConverter";
-import Navbar from "react-bootstrap/Navbar";
+import NavBar from "./components/NavBar";
 import Feedback from "./components/Feedback";
+import CalendarInfo from "./components/CalendarInfo";
+import { slugify } from "./utils/commonUtil";
+import { CALENDAR_NAME_WITH_WIKI_TERM } from "./utils/constantsUtil";
 
 class App extends Component {
   constructor(props) {
@@ -13,18 +16,19 @@ class App extends Component {
     return (
       <HashRouter>
         <div>
-          <Navbar variant="dark">
-            <Navbar.Brand href="/"><h1>Calendar Converter</h1></Navbar.Brand>
-            <Navbar.Collapse className="justify-content-end">
-              <Navbar.Text>
-                <Link to="/feedback" className="nav-right">Feedback</Link>
-              </Navbar.Text>
-            </Navbar.Collapse>
-          </Navbar>
+          <NavBar />
 
           <div className="content">
             <Route exact path="/" component={CalendarConverter} />
             <Route path="/feedback" component={Feedback} />
+            {
+              Object.keys(CALENDAR_NAME_WITH_WIKI_TERM).map((calendarName, index) => {
+                return <Route
+                  key={index}
+                  path={`/${slugify(calendarName)}`}
+                  component={() => <CalendarInfo calendarName={calendarName} />} />;
+              })
+            }
           </div>
         </div>
       </HashRouter>
