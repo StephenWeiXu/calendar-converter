@@ -15,9 +15,7 @@ class NavBar extends Component {
     return (
       <>
       <Navbar variant="dark" expand="sm">
-        <Navbar.Brand>
-          <Link to="/" className="navbar-title">Calendar Converter</Link>
-        </Navbar.Brand>
+        <Navbar.Brand href="#/" className="navbar-title">Calendar Converter</Navbar.Brand>
         <Navbar.Collapse className="justify-content-end">
           <Nav>
             <NavDropdown className="navbar-dropdown mrs" title="Calendars">

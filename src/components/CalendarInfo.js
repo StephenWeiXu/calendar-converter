@@ -6,6 +6,7 @@ import { getWikiTermDetails, getWikiTermFullSummary } from "../api/dbpedia";
 import { setCalendarDataCollection, setCurrentCalendarName } from "../reducers/calendarDataSlice";
 import { CALENDAR_NAME_WITH_WIKI_TERM } from "../utils/constantsUtil";
 import * as dbpediaUtil from "../utils/dbpediaUtil";
+import { Helmet } from "react-helmet";
 
 
 const mapStateToProps = (state) => {
@@ -68,6 +69,10 @@ class CalendarInfo extends Component {
   render() {
     return (
       <div>
+        <Helmet>
+          <title>{this.props.calendarName} - Calendar Converter</title>
+          <meta name="description" content={`Learn more about ${this.props.calendarName}, and use the calendar converter to convert a calendar date to/from ${this.props.calendarName}`} />
+        </Helmet>
         <Container>
           <Row>
             <Col md={{ span: 8, offset: 2 }}>

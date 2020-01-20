@@ -3,6 +3,7 @@ import { Container, Row, Col, Card} from "react-bootstrap";
 import ConverterCard from "./ConverterCard";
 import { connect } from "react-redux";
 import { setScreenSize } from "../reducers/utilsSlice";
+import { Helmet } from "react-helmet";
 
 
 const mapStateToProps = (state) => {
@@ -37,6 +38,9 @@ class CalendarConverter extends Component {
 	render() {
 		return (
 			<div>
+        <Helmet>
+          <meta name="description" content="Welcome to this beautiful calendar converter. Provide fast and accurate calendar conversion. Convert a calendar date among various calendars including Gregorian calendar, Lunar calendar, Hebrew/Jewish calendar, Islamic calendar, Julian calendar, Persian calendar, Indian National calendar..." />
+        </Helmet>
         <h1 className="hide">Calendar Converter</h1>
         <Row>
           <Col>
