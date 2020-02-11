@@ -8,7 +8,7 @@ const mapStateToProps = (state) => {
   let year, monthIndex, day;
   const sourceErrorMessage = state.calendar.sourceErrorMessage;
   year = sourceErrorMessage ? "" : state.calendar.targetDate.year;
-  monthIndex = sourceErrorMessage ? "-1" : state.calendar.targetDate.monthIndex;
+  monthIndex = sourceErrorMessage ? "" : state.calendar.targetDate.monthIndex;
   day = sourceErrorMessage ? "" : state.calendar.targetDate.day;
 
   return {

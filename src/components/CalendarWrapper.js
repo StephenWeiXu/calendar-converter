@@ -57,7 +57,6 @@ export function CalendarWrapperHOC(WrappedComponent) {
       const monthList = this.props.monthList;
       return (
         <select onChange={(e) => this.onDateChange(e, DATE_TYPES.MONTH_INDEX)} value={this.props.monthIndex}>
-          <option value="-1">---</option>
           {monthList.map((month, index) => {
             return <option key={index} value={index}>{month}</option>;
           })}
