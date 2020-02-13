@@ -41,7 +41,7 @@ class CalendarConverter extends Component {
         <Helmet>
           <meta name="description" content="Welcome to this beautiful calendar converter. Provide fast and accurate calendar conversion. Convert a calendar date among various calendars including Gregorian calendar, Lunar calendar, Hebrew/Jewish calendar, Islamic calendar, Julian calendar, Persian calendar, Indian National calendar..." />
         </Helmet>
-        <h1 className="hide">Calendar Converter</h1>
+        <h1 className="visually-hidden">Calendar Converter</h1>
         <Row>
           <Col>
             <ConverterCard />
