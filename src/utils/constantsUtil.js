@@ -8,6 +8,7 @@ export const CALENDAR_NAME_WITH_WIKI_TERM = {
   "Indian National Calendar": "Indian_national_calendar",
 };
 
+
 export const CALENDAR_TYPES = {
   GREGORIAN: "Gregorian",
   LUNAR: "Lunar",

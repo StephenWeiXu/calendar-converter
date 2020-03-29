@@ -31,7 +31,7 @@ class CalendarConverter extends Component {
     window.addEventListener("resize", this.props.setScreenSize);
   }
 
-  componentWillMount() {
+  componentWillUnMount() {
     window.removeEventListener("resize", this.props.setScreenSize);
   }
 
