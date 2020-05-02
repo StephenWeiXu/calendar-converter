@@ -14,22 +14,20 @@ class NavBar extends Component {
   render() {
     return (
       <>
-      <Navbar variant="dark" expand="sm">
+      <Navbar variant="dark" expand="md">
         <Navbar.Brand href="#/" className="navbar-title">Calendar Converter</Navbar.Brand>
-        <Navbar.Collapse className="justify-content-end">
+        <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+        <Navbar.Collapse id="responsive-navbar-nav" className="justify-content-end">
           <Nav>
-            <NavDropdown className="navbar-dropdown mrs" title="Calendars">
             {
               Object.keys(CALENDAR_NAME_WITH_WIKI_TERM).map((calendarName, index) => {
                 return (
-                  <NavDropdown.Item key={index} href={`#/${slugify(calendarName)}`}>
+                  <Nav.Link key={index} href={`#/${slugify(calendarName)}`}>
                     {calendarName.replace(" Calendar", "")}
-                  </NavDropdown.Item>
+                  </Nav.Link>
                 );
               })
             }
-            </NavDropdown>
-            <Nav.Link href="#/feedback">Feedback</Nav.Link>
           </Nav>
         </Navbar.Collapse>
       </Navbar>

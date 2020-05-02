@@ -46,7 +46,6 @@ class CalendarDetails extends Component {
 
   getCalendarDetailsHtml() {
     let CalendarComponent = CALENDAR_NAME_TO_COMPONENT_NAME[this.props.currentCalendarName];
-    console.log(CalendarComponent);
     if (CalendarComponent) {
       return <CalendarComponent />;
     }
