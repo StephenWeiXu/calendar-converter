@@ -2,7 +2,7 @@
   "name": "calendar-converter",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://StephenWeiXu.github.io/calendar-converter",
+  "homepage": "https://stephenweixu.github.io/calendar-converter",
   "dependencies": {
     "@reduxjs/toolkit": "^1.1.0",
     "bootstrap": "^4.4.1",
