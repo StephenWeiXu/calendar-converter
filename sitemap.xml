@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset
+      xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+            http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+
+  <url>
+    <loc>http://calendarconverter.net/</loc>
+    <lastmod>2020-01-20T02:08:05+00:00</lastmod>
+  </url>
+
+  <url>
+    <loc>http://calendarconverter.net/#/feedback</loc>
+    <lastmod>2020-01-20T02:08:05+00:00</lastmod>
+  </url>
+
+  <url>
+    <loc>http://calendarconverter.net/#/gregorian-calendar</loc>
+    <lastmod>2020-01-20T02:08:05+00:00</lastmod>
+  </url>
+
+  <url>
+    <loc>http://calendarconverter.net/#/lunar-calendar</loc>
+    <lastmod>2020-01-20T02:08:05+00:00</lastmod>
+  </url>
+
+  <url>
+    <loc>http://calendarconverter.net/#/hebrew-calendar</loc>
+    <lastmod>2020-01-20T02:08:05+00:00</lastmod>
+  </url>
+
+  <url>
+    <loc>http://calendarconverter.net/#/islamic-calendar</loc>
+    <lastmod>2020-01-20T02:08:05+00:00</lastmod>
+  </url>
+
+  <url>
+    <loc>http://calendarconverter.net/#/julian-calendar</loc>
+    <lastmod>2020-01-20T02:08:05+00:00</lastmod>
+  </url>
+
+  <url>
+    <loc>http://calendarconverter.net/#/persian-calendar</loc>
+    <lastmod>2020-01-20T02:08:05+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://calendarconverter.net/#/indian-national-calendar</loc>
+    <lastmod>2020-01-20T02:08:05+00:00</lastmod>
+  </url>
+</urlset>
