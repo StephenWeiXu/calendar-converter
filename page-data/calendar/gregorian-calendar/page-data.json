@@ -1,0 +1,5 @@
+{
+    "componentChunkName": "component---src-templates-calendar-detail-js",
+    "path": "/calendar/gregorian-calendar",
+    "result": {"pageContext":{"calendarName":"Gregorian Calendar"}},
+    "staticQueryHashes": []}
