@@ -1,80 +1,87 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
+import React, { useEffect, useState, useReducer, createContext } from "react";
 import { Container, Row, Col, Card, Dropdown, ButtonGroup} from "react-bootstrap";
 import { CALENDAR_TYPES } from "../utils/constantsUtil";
 import SourceCalendar from "./SourceCalendar";
 import TargetCalendar from "./TargetCalendar";
-import {
-  setSourceCalendar,
-  setTargetCalendar,
-  switchSourceAndTargetCalendar,
-  setSourceDate,
-  setTargetDate,
-  setJulianDay,
-  calculateSourceCalendarDate,
-  calculateTargetCalendarDate 
-} from "../reducers/calendarSlice";
-import { ConverterUtil } from "../utils/converterUtil";
+import { ConverterUtil , calendarConversionFromJulianDay} from "../utils/converterUtil";
 import { MediaQueryUtil } from "../utils/displayUtil";
 
-
+const isBrowser = () => typeof window !== "undefined";
 const mediaQueryUtil = new MediaQueryUtil();
 
-const mapStateToProps = (state) => {
-  return {
-    screenSize: state.utils.screenSize,
-    sourceCalendar: state.calendar.sourceCalendar,
-    targetCalendar: state.calendar.targetCalendar,
-    reverseSourceTargetCalendarFlag: state.calendar.reverseSourceTargetCalendarFlag
-  };
+/**
+ * Get the display title of the calendar
+ * @param {String} calendar 
+ */
+function getCalendarDisplayTitle(calendar) {
+  return `${calendar}`;
 }
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    setSourceCalendar: (calendar) => {
-      dispatch(setSourceCalendar({sourceCalendar: calendar}));
-    },
-    setTargetCalendar: (calendar) => {
-      dispatch(setTargetCalendar({targetCalendar: calendar}));
-    },
-    switchSourceAndTargetCalendar: () => {
-      dispatch(switchSourceAndTargetCalendar());
-    },
-    setJulianDay: (julianDayNumber) => {
-      dispatch(setJulianDay({julianDay: julianDayNumber}));
-    },
-    setSourceDate: () => {
-      dispatch(setSourceDate());
-    },
-    setTargetDate: () => {
-      dispatch(setTargetDate());
-    },
-    calculateSourceCalendarDate: () => {
-      dispatch(calculateSourceCalendarDate());
-    },
-    calculateTargetCalendarDate: () => {
-      dispatch(calculateTargetCalendarDate());
-    }
-  };
-}
-
-class CalendarCard extends Component {
-	constructor(props) {
-		super(props);
+function getResponsiveVisibileCount() {
+  if (!isBrowser()) {
+    return 0;
   }
+  
+  if (mediaQueryUtil.isSmallScreen(window.innerWidth) || mediaQueryUtil.isXSmallScreen(window.innerWidth)) {
+    return 0;
+  } else if (mediaQueryUtil.isMediumScreen(window.innerWidth)) {
+    return 1;
+  } else if (mediaQueryUtil.isLargeScreen(window.innerWidth)) {
+    return 2;
+  }
+  return 3;
+}
 
-  componentDidMount() {
-    // Initialize source calendar with today's date
-    const today = new Date();
-    const converterUtil = new ConverterUtil();
-    let julianDay = converterUtil.gregorianToJulianDay({
-      year: today.getFullYear(),
-      monthIndex: today.getMonth(),
-      day: today.getDate()
-    });
-    this.props.setJulianDay(julianDay);
-    this.props.calculateSourceCalendarDate();
-    this.props.calculateTargetCalendarDate();
+// compute today's JulianDay
+const today = new Date();
+const converterUtil = new ConverterUtil();
+let todayJulianDay = converterUtil.gregorianToJulianDay({
+  year: today.getFullYear(),
+  monthIndex: today.getMonth(),
+  day: today.getDate()
+});
+export const ConverterCardContext = createContext();
+
+function reducer(originalState, newState) {
+  return newState;
+}
+
+export default function CalendarCard(props) {
+  const [screenSize, setScreenSize] = useState(null);
+  const [sourceCalendar, setSourceCalendar] = useReducer(reducer, CALENDAR_TYPES.GREGORIAN);
+  const [targetCalendar, setTargetCalendar] = useReducer(reducer, CALENDAR_TYPES.LUNAR);
+  const [sourceErrorMessage, setSourceErrorMessage] = useState("");
+  const [targetErrorMessage, setTargetErrorMessage] = useState("");
+  const [reverseSourceTargetCalendarFlag, setReverseSourceTargetCalendarFlag] = useState(false);
+  const [julianDay, setJulianDay] = useState(todayJulianDay);
+  const [sourceDate, setSourceDate] = useState({
+    year: 0,
+    monthList: [],
+    monthIndex: 0,
+    day: 0
+  });
+  const [targetDate, setTargetDate] = useState({
+    year: 0,
+    monthList: [],
+    monthIndex: 0,
+    day: 0
+  });
+
+  // Listen on sourceCalendar state for updates
+  useEffect(() => {
+    setSourceDate(calendarConversionFromJulianDay(sourceCalendar, julianDay));
+  }, [sourceCalendar]);
+
+  // Listen on targetCalendar state for updates
+  useEffect(() => {
+    setTargetDate(calendarConversionFromJulianDay(targetCalendar, julianDay));
+  }, [targetCalendar]);
+
+  function switchSourceAndTargetCalendar() {
+    let tempSource = sourceCalendar;
+    setSourceCalendar(targetCalendar);
+    setTargetCalendar(tempSource);
+    setReverseSourceTargetCalendarFlag(!reverseSourceTargetCalendarFlag);
   }
 
   /**
@@ -82,35 +89,13 @@ class CalendarCard extends Component {
    * @param {Event} event
    * @param {Boolean} isSource
    */
-  changeCalendar(event, isSource) {
+  function changeCalendar(event, isSource) {
     const calendarName = event.target.dataset.calendarName;
     if (isSource) {
-      this.props.setSourceCalendar(calendarName);
-      this.props.calculateSourceCalendarDate();
+      setSourceCalendar(calendarName);
     } else {
-      this.props.setTargetCalendar(calendarName);
-      this.props.calculateTargetCalendarDate();
+      setTargetCalendar(calendarName);
     }
-  }
-  
-
-  /**
-   * Get the display title of the calendar
-   * @param {String} calendar 
-   */
-  getCalendarDisplayTitle(calendar) {
-    return `${calendar}`;
-  }
-
-  getResponsiveVisibileCount() {
-    if (mediaQueryUtil.isSmallScreen(window.innerWidth) || mediaQueryUtil.isXSmallScreen(window.innerWidth)) {
-      return 0;
-    } else if (mediaQueryUtil.isMediumScreen(window.innerWidth)) {
-      return 1;
-    } else if (mediaQueryUtil.isLargeScreen(window.innerWidth)) {
-      return 2;
-    }
-    return 3;
   }
 
   /**
@@ -118,8 +103,8 @@ class CalendarCard extends Component {
    * @param {String} currentCalendar
    * @param {Boolean} isSource 
    */
-  renderCalendarTitleDropdown(currentCalendar, isSource) {
-    let visibileCount = this.getResponsiveVisibileCount();
+  function renderCalendarTitleDropdown(currentCalendar, isSource) {
+    let visibileCount = getResponsiveVisibileCount();
     let visibleCalendars = [];
     let hiddenCalendars = [];
 
@@ -127,10 +112,10 @@ class CalendarCard extends Component {
       let calendarName = CALENDAR_TYPES[calendarKey];
 
       // Remove the same calendar in the other card to avoid redundancy;
-      // if (isSource && calendarName === this.props.targetCalendar) {
+      // if (isSource && calendarName === targetCalendar) {
       //   return;
       // }
-      // if (!isSource && calendarName === this.props.sourceCalendar) {
+      // if (!isSource && calendarName === sourceCalendar) {
       //   return;
       // }
 
@@ -147,7 +132,7 @@ class CalendarCard extends Component {
     return (
       <Dropdown as={ButtonGroup}>
         <Dropdown.Item href="#" className="calendar-item selected">
-          {this.getCalendarDisplayTitle(currentCalendar)}
+          {getCalendarDisplayTitle(currentCalendar)}
         </Dropdown.Item>
 
         {
@@ -155,8 +140,8 @@ class CalendarCard extends Component {
             let calendarName = CALENDAR_TYPES[calendarKey];
             if (calendarName !== currentCalendar) {
               return (
-                <Dropdown.Item href="#" key={index} data-calendar-name={calendarName} className="calendar-item" onClick={(e) => this.changeCalendar(e, isSource)}>
-                  {this.getCalendarDisplayTitle(calendarName)}
+                <Dropdown.Item href="#" key={index} data-calendar-name={calendarName} className="calendar-item" onClick={(e) => changeCalendar(e, isSource)}>
+                  {getCalendarDisplayTitle(calendarName)}
                 </Dropdown.Item>
               )
             }
@@ -170,8 +155,8 @@ class CalendarCard extends Component {
               let calendarName = CALENDAR_TYPES[calendarKey];
               if (calendarName !== currentCalendar) {
                 return (
-                  <Dropdown.Item href="#" className="converter-header__dropdown-item" key={index} data-calendar-name={calendarName} onClick={(e) => this.changeCalendar(e, isSource)}>
-                    {this.getCalendarDisplayTitle(calendarName)}
+                  <Dropdown.Item href="#" className="converter-header__dropdown-item" key={index} data-calendar-name={calendarName} onClick={(e) => changeCalendar(e, isSource)}>
+                    {getCalendarDisplayTitle(calendarName)}
                   </Dropdown.Item>
                 )
               }
@@ -182,20 +167,24 @@ class CalendarCard extends Component {
     )
   }
 
-	render() {
-		return (
+  let contextToPass = { julianDay, setJulianDay, sourceCalendar, setSourceCalendar, targetCalendar, setTargetCalendar,sourceErrorMessage, setSourceErrorMessage,
+    targetErrorMessage, setTargetErrorMessage, reverseSourceTargetCalendarFlag, setReverseSourceTargetCalendarFlag,
+    sourceDate, setSourceDate, targetDate, setTargetDate };
+
+  return (
+    <ConverterCardContext.Provider value={contextToPass}>
       <Card className="converter-card">
         <Card.Header className="converter-header">
         <Container>
           <Row>
             <Col xs={5}>
-              {this.renderCalendarTitleDropdown(this.props.sourceCalendar, true)}
+              {renderCalendarTitleDropdown(sourceCalendar, true)}
             </Col>
             <Col xs={2}>
-              <img src="images/switch.png" className="converter-header__switch-icon" onClick={this.props.switchSourceAndTargetCalendar} />
+              {/* <img src="images/switch.png" className="converter-header__switch-icon" onClick={switchSourceAndTargetCalendar} /> */}
             </Col>
             <Col xs={5}>
-              {this.renderCalendarTitleDropdown(this.props.targetCalendar, false)}
+              {renderCalendarTitleDropdown(targetCalendar, false)}
             </Col>
           </Row>
           </Container>
@@ -204,17 +193,15 @@ class CalendarCard extends Component {
           <Container>
             <Row>
               <Col className="converter-body__source" md={6}>
-                {this.props.reverseSourceTargetCalendarFlag ? <TargetCalendar /> : <SourceCalendar />}
+                {reverseSourceTargetCalendarFlag ? <TargetCalendar /> : <SourceCalendar />}
               </Col>
               <Col className="converter-body__target" md={6}>
-                {this.props.reverseSourceTargetCalendarFlag ? <SourceCalendar /> : <TargetCalendar />}
+                {reverseSourceTargetCalendarFlag ? <SourceCalendar /> : <TargetCalendar />}
               </Col>
             </Row>
             </Container>
         </Card.Body>
       </Card>
-		);
-	}
+    </ConverterCardContext.Provider>
+  );
 }
-
-export default connect(mapStateToProps, mapDispatchToProps)(CalendarCard);

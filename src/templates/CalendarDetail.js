@@ -1,8 +1,8 @@
-import React, { Component, useEffect } from "react";
+import React, { Component, useState, useEffect } from "react";
 import { Container, Row, Col} from "react-bootstrap";
-import { Link } from "react-router-dom";
 import { CALENDAR_NAME_WITH_WIKI_TERM } from "../utils/constantsUtil";
 import { Helmet } from "react-helmet";
+import NavBar from "../components/NavBar";
 import GregorianCalendar from "../calendars/GregorianCalendar";
 import LunarCalendar from "../calendars/LunarCalendar";
 import HebrewCalendar from "../calendars/HebrewCalendar";
@@ -22,11 +22,13 @@ const CALENDAR_NAME_TO_COMPONENT_NAME = {
   "Indian National Calendar": IndianNationalCalendar
 }
 
-export default function CalendarDetails(props) {
+const CalendarDetail = function Template(props) {
+  let calendarName = props.pageContext.calendarName;
+
   const [currentCalendarName, setCurrentCalendarName] = useState("");
 
   useEffect(() => {
-    setCurrentCalendarName(props.calendarName);
+    setCurrentCalendarName(calendarName);
   }, []);
 
   function getCalendarDetailsHtml() {
@@ -39,17 +41,20 @@ export default function CalendarDetails(props) {
   return (
     <div>
       <Helmet>
-        <title>{props.calendarName} - Calendar Converter</title>
-        <meta name="description" content={`Learn more about ${props.calendarName}, and use the calendar converter to convert a calendar date to/from ${props.calendarName}`} />
+        <title>{currentCalendarName} - Calendar Converter</title>
+        <meta name="description" content={`Learn more about ${currentCalendarName}, and use the calendar converter to convert a calendar date to/from ${currentCalendarName}`} />
       </Helmet>
-      <Container>
+  
+      <NavBar />
+
+      <Container className="content">
         <Row>
           <Col md={{ span: 8, offset: 2 }}>
-            <h1>{props.calendarName}</h1>
-            <p><Link to="/">Try the calendar converter</Link></p>
-            {this.getCalendarDetailsHtml()}
+            <h1>{currentCalendarName}</h1>
+            <p><a href="/">Try the calendar converter</a></p>
+            {getCalendarDetailsHtml()}
             <p className="mts">
-              Source: <a target="_blank" href={`https://en.wikipedia.org/wiki/${CALENDAR_NAME_WITH_WIKI_TERM[props.calendarName]}`}>Wikipedia</a>
+              Source: <a target="_blank" href={`https://en.wikipedia.org/wiki/${CALENDAR_NAME_WITH_WIKI_TERM[currentCalendarName]}`}>Wikipedia</a>
             </p>
           </Col>
         </Row>
@@ -57,3 +62,5 @@ export default function CalendarDetails(props) {
     </div>
   )
 }
+
+export default CalendarDetail;

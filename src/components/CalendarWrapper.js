@@ -3,7 +3,7 @@ import { calendarConversionToJulianDay } from "../utils/converterUtil";
 import { DATE_TYPES } from "../utils/constantsUtil";
 
 
-export function CalendarWrapperHOC(WrappedComponent) {
+export default function CalendarWrapperHOC(WrappedComponent) {
   return class extends React.Component {
     constructor(props) {
       super(props);
