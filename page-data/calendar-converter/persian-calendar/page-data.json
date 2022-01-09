@@ -1,5 +1,5 @@
 {
     "componentChunkName": "component---src-templates-calendar-detail-js",
-    "path": "/calendar-converter/persian-calendar",
+    "path": "/calendar-converter/persian-calendar/",
     "result": {"pageContext":{"calendarName":"Persian Calendar"}},
     "staticQueryHashes": []}

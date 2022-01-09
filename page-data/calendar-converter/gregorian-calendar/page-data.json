@@ -1,5 +1,5 @@
 {
     "componentChunkName": "component---src-templates-calendar-detail-js",
-    "path": "/calendar-converter/gregorian-calendar",
+    "path": "/calendar-converter/gregorian-calendar/",
     "result": {"pageContext":{"calendarName":"Gregorian Calendar"}},
     "staticQueryHashes": []}

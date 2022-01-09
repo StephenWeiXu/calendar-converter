@@ -1,5 +1,5 @@
 {
     "componentChunkName": "component---src-templates-calendar-detail-js",
-    "path": "/calendar-converter/julian-calendar",
+    "path": "/calendar-converter/julian-calendar/",
     "result": {"pageContext":{"calendarName":"Julian Calendar"}},
     "staticQueryHashes": []}

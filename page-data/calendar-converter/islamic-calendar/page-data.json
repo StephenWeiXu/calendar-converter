@@ -1,5 +1,5 @@
 {
     "componentChunkName": "component---src-templates-calendar-detail-js",
-    "path": "/calendar-converter/islamic-calendar",
+    "path": "/calendar-converter/islamic-calendar/",
     "result": {"pageContext":{"calendarName":"Islamic Calendar"}},
     "staticQueryHashes": []}
