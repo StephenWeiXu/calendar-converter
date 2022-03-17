@@ -2,6 +2,7 @@ import React, { Component, useState, useEffect } from "react";
 import { Container, Row, Col} from "react-bootstrap";
 import { CALENDAR_NAME_WITH_WIKI_TERM } from "../utils/constantsUtil";
 import { Helmet } from "react-helmet";
+import { Link } from "gatsby";
 import NavBar from "../components/NavBar";
 import GregorianCalendar from "../calendars/GregorianCalendar";
 import LunarCalendar from "../calendars/LunarCalendar";
@@ -51,7 +52,7 @@ const CalendarDetail = function Template(props) {
         <Row>
           <Col md={{ span: 8, offset: 2 }}>
             <h1>{currentCalendarName}</h1>
-            <p><a href="/">Try the calendar converter</a></p>
+            <p><Link to="/" className="navbar-title">Try the calendar converter</Link></p>
             {getCalendarDetailsHtml()}
             <p className="mts">
               Source: <a target="_blank" href={`https://en.wikipedia.org/wiki/${CALENDAR_NAME_WITH_WIKI_TERM[currentCalendarName]}`}>Wikipedia</a>

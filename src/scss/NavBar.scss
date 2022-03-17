@@ -4,13 +4,12 @@
   padding-right: 2rem !important;
   background-color: cadetblue;
 
-  .navbar-brand {
-    .navbar-title {
-      color: #fff;
+  .navbar-title {
+    color: #fff;
+    font-size: 1.25em;
 
-      &:hover {
-        text-decoration: none;
-      }
+    &:hover {
+      text-decoration: none;
     }
   }
 

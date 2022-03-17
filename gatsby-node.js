@@ -26,7 +26,7 @@ exports.createPages = ({ actions }) => {
 
   Object.entries(CALENDAR_NAME_WITH_WIKI_TERM).forEach(([calendarName, calendarValue]) => {
     createPage({
-      path: `/calendar-converter/${slugify(calendarName)}/`,
+      path: `/${slugify(calendarName)}`,
       component: template,
       context: {
         calendarName: calendarName,
